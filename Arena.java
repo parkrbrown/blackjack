@@ -29,13 +29,12 @@ public class Arena {
 
         System.out.println("Welcome to Blackjack!");
         int numberOfGames = arena.getNumberOfGames();
-        PlayerType player1Type = arena.getPlayerType("What kind of player will Player 1 be?");
-        PlayerType player2Type = arena.getPlayerType("What kind of player will Player 2 be?");
+        // System.out.println("How many players will be playing against the house?"); // Stretch goal
+        PlayerType playerType = arena.getPlayerType("What kind of player will be playing against the house?");
 
-        Player player1 = new Player("Player One", player1Type, arena.input);
-        Player player2 = new Player("Player Two", player2Type, arena.input);
+        Player player = new Player("Player One", playerType, arena.input);
 
-        Game game = new Game(player1, player2, numberOfGames);
+        Game game = new Game(player, numberOfGames);
 
         for (int i = 0; i < numberOfGames; i++) {
             game.play();

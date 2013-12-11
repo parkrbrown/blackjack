@@ -52,6 +52,8 @@ public class Player {
      */
     public String getPlayerTypeName() {
         switch (playerType) {
+            case HOUSE:
+                return "HOUSE";
             case RANDOM:
                 return "RANDOM";
             case SMART:
@@ -78,7 +80,7 @@ public class Player {
      * @param sticksLeft
      * @return
      */
-    public int takeSticks(int sticksLeft) {
+    public int takeSticks(int sticksLeft) { // takeHit
         switch (playerType) {
             case USER:
                 return userPlayer();

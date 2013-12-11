@@ -4,9 +4,9 @@ public class TestDeck
 {
    public static void main(String[] args)
    {
-      DeckOfCards a;
+      Deck a;
 
-      a = new DeckOfCards();
+      a = new Deck();
       System.out.println(a);
 
       System.out.println("Shuffle cards....");

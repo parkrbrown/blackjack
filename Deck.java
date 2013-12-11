@@ -1,20 +1,20 @@
 package blackjack;
 
-public class DeckOfCards {
+public class Deck {
 
     public static final int NCARDS = 52;
 
-    private Card[] deckOfCards;         // Contains all 52 cards
+    private Card[] deck;         // Contains all 52 cards
     private int currentCard;            // deal THIS card in deck
 
-    public DeckOfCards() {
-        deckOfCards = new Card[NCARDS];
+    public Deck() {
+        deck = new Card[NCARDS];
 
         int i = 0;
 
         for (int suit = Card.DIAMOND; suit <= Card.SPADE; suit++) {
             for (int rank = 1; rank <= 13; rank++) {
-                deckOfCards[i++] = new Card(suit, rank);
+                deck[i++] = new Card(suit, rank);
             }
         }
 
@@ -30,18 +30,18 @@ public class DeckOfCards {
             j = (int) (NCARDS * Math.random());  // in the deck
 
             // swap these randomly picked cards
-            Card tmp = deckOfCards[i];
-            deckOfCards[i] = deckOfCards[j];
-            deckOfCards[j] = tmp;
+            Card tmp = deck[i];
+            deck[i] = deck[j];
+            deck[j] = tmp;
         }
 
         currentCard = 0;   // Reset current card to deal
     }
 
-    // deal(): deal deckOfCards[currentCard] out
+    // deal(): deal deck[currentCard] out
     public Card deal() {
         if (currentCard < NCARDS) {
-            return (deckOfCards[ currentCard++]);
+            return (deck[ currentCard++]);
         } else {
             System.out.println("Out of cards error");
             return (null);  // Error;
@@ -55,7 +55,7 @@ public class DeckOfCards {
         k = 0;
         for (int i = 0; i < 4; i++) {
             for (int j = 1; j <= 13; j++) {
-                s += (deckOfCards[k++] + " ");
+                s += (deck[k++] + " ");
             }
 
             s += "\n";

@@ -11,8 +11,8 @@ package blackjack;
  */
 public class Game {
 
-    private final Player PLAYER1;
-    private final Player PLAYER2;
+    private final Player PLAYER;
+    private final Player HOUSE = PlayerType.HOUSE; // figure this out
     private int sticksLeft;
     private final int NUMBER_OF_GAMES;
     private final int NUMBER_OF_STICKS;
@@ -21,20 +21,17 @@ public class Game {
     private Player currentTurn;
 
     private boolean shouldShowGameplay() {
-        return PLAYER1.getPlayerType() == PlayerType.USER || PLAYER2.getPlayerType() == PlayerType.USER;
+        return PLAYER.getPlayerType() == PlayerType.USER;
     }
 
     /**
      *
-     * @param player1
-     * @param player2
+     * @param player
      * @param numberOfGames
      */
-    public Game(Player player1, Player player2, int numberOfGames) {
-        this.PLAYER1 = player1;
-        this.PLAYER2 = player2;
-        this.PLAYER1.setShouldShowGameplay(shouldShowGameplay());
-        this.PLAYER2.setShouldShowGameplay(shouldShowGameplay());
+    public Game(Player player, int numberOfGames) {
+        this.PLAYER = player;
+        this.PLAYER.setShouldShowGameplay(shouldShowGameplay());
         this.NUMBER_OF_GAMES = numberOfGames;
         this.NUMBER_OF_STICKS = 15;
         //this.MAX_STICKS_THAT_CAN_BE_TAKEN = 3; // This is a stretch goal
@@ -56,9 +53,9 @@ public class Game {
     public void play() {
         sticksLeft = NUMBER_OF_STICKS;
         if (shouldShowGameplay()) {
-            System.out.println("Okay, " + PLAYER1.getPlayerTypeName() + " vs " + PLAYER2.getPlayerTypeName() + ".");
+            System.out.println("Okay, " + PLAYER.getPlayerTypeName() + " vs " + HOUSE.getPlayerTypeName() + "."); // NEED TO CHANGE P2 OUTPUT
         }
-        currentTurn = PLAYER1;
+        currentTurn = PLAYER;
 
         while (sticksLeft > 0) {
             if (shouldShowGameplay()) {
@@ -81,17 +78,17 @@ public class Game {
      */
     public void showResults() {
         if (!shouldShowGameplay()) {
-            System.out.println("Okay, Player 1 (" + PLAYER1.getPlayerTypeName() + ") and Player 2 (" + PLAYER2.getPlayerTypeName() + ") just finished playing " + NUMBER_OF_GAMES + " games.  Here is the outcome:");
+            System.out.println("Okay, Player 1 (" + PLAYER.getPlayerTypeName() + ") and Player 2 (" + HOUSE.getPlayerTypeName() + ") just finished playing " + NUMBER_OF_GAMES + " games.  Here is the outcome:");
         }
-        System.out.println(PLAYER1.getPlayerTypeName() + " wins: " + PLAYER1.getWins());
-        System.out.println(PLAYER2.getPlayerTypeName() + " wins: " + PLAYER2.getWins());
+        System.out.println(PLAYER.getPlayerTypeName() + " wins: " + PLAYER.getWins());
+        System.out.println(HOUSE.getPlayerTypeName() + " wins: " + HOUSE.getWins());
     }
 
     private void switchTurns() {
-        if (currentTurn == PLAYER1) {
-            currentTurn = PLAYER2;
+        if (currentTurn == PLAYER) {
+            currentTurn = PLAYER;
         } else {
-            currentTurn = PLAYER1;
+            currentTurn = PLAYER;
         }
     }
 }
