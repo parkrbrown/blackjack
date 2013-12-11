@@ -51,15 +51,14 @@ public class Game {
      * Plays the game
      */
     public void play() {
-        sticksLeft = NUMBER_OF_STICKS;
         if (shouldShowGameplay()) {
             System.out.println("Okay, " + PLAYER.getPlayerTypeName() + " vs " + HOUSE.getPlayerTypeName() + "."); // NEED TO CHANGE P2 OUTPUT
         }
         currentTurn = PLAYER;
 
-        while (sticksLeft > 0) {
+        while (true) {
             if (shouldShowGameplay()) {
-                printSticks();
+                //printHand();
             }
             sticksLeft -= currentTurn.takeSticks(sticksLeft);
 
