@@ -200,8 +200,8 @@ public class Player {
                 
             }
         }
-        //System.out.println("Okay, " + move); // TODO: How is this unreachable?
-       // return choice; // TODO: This shows as unreachable too.
+        System.out.println("Okay, " + move); // TODO: How is this unreachable?
+        return choice; // TODO: This shows as unreachable too.
     }
 
     private String convertIntToStringName(int number) {

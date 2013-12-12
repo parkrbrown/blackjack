@@ -84,8 +84,20 @@ public class House {
         System.out.println(houseHandValue);
 
        	//System.out.println(playerHand.get(0)); // this is how to get the first card in the playerHand
-       	int[] playerHandValueArray = {6,5};  // TODO: Convert arraylist playerHandValue to array
-       	int[] houseHandValueArray = {7, 10}; // TODO: Convert arraylist houseHandValue to array
+       
+        int[] playerHandValueArray = convertToArray(playerHandValue);
+        int[] houseHandValueArray = convertToArray(houseHandValue);
+//       	int [] playerHandValueArray = new int[playerHandValue.size()];
+//       	for(int i=0, len = playerHandValue.size(); i < len; i++) {
+//       	   playerHandValueArray[i] = (int) playerHandValue.get(i);
+//       	}
+//       	
+//       	int [] houseHandValueArray = new int[houseHandValue.size()];
+//       	for(int i=0, len = houseHandValue.size(); i < len; i++) {
+//       	   houseHandValueArray[i] = (int) houseHandValue.get(i);
+//       	}
+//       	System.out.println(playerHandValueArray);
+//       	System.out.println(houseHandValueArray);
        	
         int handValue = playerHandValueArray[0] + playerHandValueArray[1];
         int houseHandValue = houseHandValueArray[0] + houseHandValueArray[1];
@@ -144,11 +156,12 @@ public class House {
         	} else if (handValue < houseHandValue && houseHandValue <= 21) {
         		System.out.println("House wins!");
         		//sayYouLose(); // TODO: Call from Player class
-        	}
-       
-        	// TODO: compare values. Closest to 21 wins.
+        	} else if (handValue == houseHandValue) {
+        		System.out.println("Tie!");
+        		//sayYouTie(); // TODO: Create and call from Player class
+        	}       
         }
-            
+        
 // TODO: Do we even need this?
 //        while (true) {
 //            if (shouldShowGameplay()) {
@@ -165,6 +178,14 @@ public class House {
 //        }
     }    
     
+    //Converts ArrayList of ints to int[] array
+    public int[] convertToArray( ArrayList arrayList ) {
+        int [] array = new int[arrayList.size()];
+       	for(int i=0, size = arrayList.size(); i < size; i++) {
+       	   array[i] = (int) arrayList.get(i);
+       	}   
+       	return array;
+    }
     /**
      * Prints out results after all games have been played
      */
