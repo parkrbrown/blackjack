@@ -17,6 +17,8 @@ public class TestDeck
 
       b = a.deal();
       System.out.println("Deal a card: " + b);
+      Scanner input = new Scanner(System.in);
+      System.out.println();
       b = a.deal();
       System.out.println("Deal a card: " + b);
       b = a.deal();
@@ -25,6 +27,10 @@ public class TestDeck
       System.out.println("Deal a card: " + b);
       b = a.deal();
       System.out.println("Deal a card: " + b);
+      
+      
+      System.out.println();
+      System.out.println(a);
 
    }
 }

@@ -39,10 +39,11 @@ public class Deck {
     }
 
     // deal(): deal deck[currentCard] out
+    // TODO: remove card dealt from stack
     public Card deal() {
         if (currentCard < NCARDS) {
             return (deck[ currentCard++]);
-        } else {
+        } else { // TODO: shuffle and deal
             System.out.println("Out of cards error");
             return (null);  // Error;
         }

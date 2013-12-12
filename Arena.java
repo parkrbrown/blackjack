@@ -8,7 +8,7 @@ package blackjack;
 import java.util.Scanner;
 
 /**
- * This class is the driver class, where the main method is. It will ask the end user how many games will be played and which kinds of users will be playing.
+ * This class is the driver class, where the main method is. It will ask the end user how many houses will be played and which kinds of users will be playing.
  * @author parkerbrown
  */
 public class Arena {
@@ -32,18 +32,15 @@ public class Arena {
         // System.out.println("How many players will be playing against the house?"); // Stretch goal
         PlayerType playerType = arena.getPlayerType("What kind of player will be playing against the house?");
 
-        Player player = new Player("Player One", playerType, arena.input);
+        Player player = new Player("Player", playerType, arena.input);
 
-        Game game = new Game(player, numberOfGames);
+        House house = new House(player, numberOfGames);
 
         for (int i = 0; i < numberOfGames; i++) {
-            game.play();
+            house.play();
         }
 
-        game.showResults();
-
-        //Thread.sleep(2000);  // This short pause happens by nature when running a large number of games. 
-        //arena.printResults();
+        //house.showResults();
     }
 
     /**
@@ -53,7 +50,7 @@ public class Arena {
     public int getNumberOfGames() {
         while (true) {
             try {
-                System.out.println("How many games would you like to play?");
+                System.out.println("How many houses would you like to play?");
                 String value = input.nextLine();
 
                 numberOfGames = Integer.parseInt(value);
