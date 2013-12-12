@@ -85,7 +85,7 @@ public class Player {
         Card card = deck.deal();
         return card;
     }
-    public int randomPlayer() {
+    private int randomPlayer() {
     	int choice = 1;
     	
     	Random rand = new Random();
@@ -152,7 +152,7 @@ public class Player {
                 break; //
         }
         if (shouldShowGameplay) {
-            System.out.println(name + " took " + convertIntToStringName(sticks) + (sticks == 1 ? " matchstick" : " matchsticks") + ".");
+            //System.out.println(name + " took " + convertIntToStringName(sticks) + (sticks == 1 ? " matchstick" : " matchsticks") + ".");
         }
         return sticks;
     }
@@ -203,31 +203,7 @@ public class Player {
         return choice;
     }
 
-    private String convertIntToStringName(int number) {
-        switch (number) {
-            case 1:
-                return "one";
-            case 2:
-                return "two";
-            case 3:
-                return "three";
-            case 4:
-                return "four";
-            case 5:
-                return "five";
-            case 6:
-                return "six";
-            case 7:
-                return "seven";
-            case 8:
-                return "eight";
-            case 9:
-                return "nine";
-            default:
-                return number + "";
-        }
-    }
-
+    
     /**
      * This method tells the player that they won
      */

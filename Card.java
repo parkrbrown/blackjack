@@ -22,7 +22,9 @@ public class Card {
 
         cardSuit = (byte) suit;
     }
-
+    public Card() {
+    	
+    }
     public int suit() {
         return (cardSuit);      // This is a shorthand for:  this.cardSuit
     }

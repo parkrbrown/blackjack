@@ -14,8 +14,8 @@ import java.util.Scanner;
 public class Arena {
 
     private Scanner input = new Scanner(System.in);
-    int numberOfPlayerOneWins;
-    int numberOfPlayerTwoWins;
+    int numberOfPlayerWins;
+    int numberOfHouseWins;
     int numberOfGames;
 
     /**

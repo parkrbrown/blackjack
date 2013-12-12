@@ -13,9 +13,9 @@ import java.util.ArrayList;
 public class House {
 
     private final Player PLAYER;
-    private int sticksLeft;
+   // private int sticksLeft;
     private final int NUMBER_OF_GAMES;
-    private final int NUMBER_OF_STICKS;
+   // private final int NUMBER_OF_STICKS;
     //private final int MAX_STICKS_THAT_CAN_BE_TAKEN;
 
     private Player currentTurn;
@@ -40,19 +40,19 @@ public class House {
         this.PLAYER = player;
         this.PLAYER.setShouldShowGameplay(shouldShowGameplay());
         this.NUMBER_OF_GAMES = numberOfGames;
-        this.NUMBER_OF_STICKS = 15;
+        //this.NUMBER_OF_STICKS = 15;
         //this.MAX_STICKS_THAT_CAN_BE_TAKEN = 3; // This is a stretch goal
     }
 
     /**
      * Prints out sticks
      */
-    public void printSticks() {
-        for (int i = 0; i < sticksLeft; i++) {
-            System.out.print("|");
-        }
-        System.out.println(); // line break
-    }
+//    public void printSticks() {
+//        for (int i = 0; i < sticksLeft; i++) {
+//            System.out.print("|");
+//        }
+//        System.out.println(); // line break
+//    }
 
     /**
      * Plays the game
@@ -99,19 +99,32 @@ public class House {
 //       	System.out.println(playerHandValueArray);
 //       	System.out.println(houseHandValueArray);
        	
-        int handValue = playerHandValueArray[0] + playerHandValueArray[1];
-        int houseHandValue = houseHandValueArray[0] + houseHandValueArray[1];
+        int handValue = 21; // playerHandValueArray[0] + playerHandValueArray[1];
+        int houseHandValue = 21; //houseHandValueArray[0] + houseHandValueArray[1];
         
         System.out.println(handValue);
         System.out.println(houseHandValue);
-        System.exit(0);
         
         //Checks if house or player have blackjack and if not continues game. Otherwise, declares winner.
-        if (houseHandValue == 21 && (houseHand.get(0) == Card.getRank()[11])) { // TODO: Does this work? Make it work for Jack, Kind, and Queen (11, 12, 13)
-        	//sayYouLose();		// TODO: Call from Player class
-        } else if (handValue == 21 && playerHand.get(0) == Card.getRank()[11]) { // TODO: Does this work? Make it work for Jack, Kind, and Queen (11, 12, 13)
-        	//sayYouWin(); // TODO: Call from Player class
+        
+        Card card = new Card();
+        
+        String[] array = card.getRank();
+        System.out.println(houseHand.get(0));
+        Deck deck2 = new Deck();
+        System.out.println(deck2);
+        
+        if (houseHandValue == 21 && (houseHand.get(0) == array[11] || houseHand.get(1) == array[11] 
+        		|| houseHand.get(0) == array[12] || houseHand.get(1) == array[12]
+        				|| houseHand.get(0) == array[13] || houseHand.get(1) == array[13])) {
+        	PLAYER.sayYouLose();
+        } else if (handValue == 21 && (playerHand.get(0) == array[11] || playerHand.get(1) == array[11] 
+        		|| playerHand.get(0) == array[12] || playerHand.get(1) == array[12]
+        				|| playerHand.get(0) == array[13] || playerHand.get(1) == array[13])) {
+        	PLAYER.sayYouWin();
         } else {
+System.out.println("BLAH");
+System.exit(0);
         	int number = 0;
         	boolean endOfTurn = false;
         
@@ -138,8 +151,9 @@ public class House {
         			endOfTurn = true;
         		}
     			playerHandValueArray = convertToArray(playerHand);
+    			handValue = 0;
         		for (int i = 0; i < playerHand.size(); i++) {
-        			
+        			handValue = handValue + playerHandValueArray[i];
         		}
         		// TODO: Update value of player hand
         	}
