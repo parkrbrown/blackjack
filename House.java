@@ -137,6 +137,11 @@ public class House {
         		} else if (handValue == 21) {
         			endOfTurn = true;
         		}
+    			playerHandValueArray = convertToArray(playerHand);
+        		for (int i = 0; i < playerHand.size(); i++) {
+        			
+        		}
+        		// TODO: Update value of player hand
         	}
         	endOfTurn = false;
         	while (endOfTurn == false) {
@@ -149,6 +154,7 @@ public class House {
         		} else {
         			endOfTurn = true;
         		}
+        		// TODO: Update value of house hand
         	}
         	if (handValue > houseHandValue && handValue <= 21) {
         		System.out.println("Player wins!");

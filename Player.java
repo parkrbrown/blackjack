@@ -158,7 +158,7 @@ public class Player {
     }
     
     private int smartPlayer2(Card visibleCard, int[] playerHand) {
-        int count = 0, choice;
+        int count = 0, choice = -1;
         
         //Count cards
         
@@ -181,27 +181,26 @@ public class Player {
 //    }
 
     private int userPlayer() {
-        String move;
-        int choice;
-        while (true) {
-            try {
+        String move = "";
+        int choice = -1;
+        boolean validInput = false;
+        while (validInput == false) {
                 System.out.println(name + " would you like to hit or stay?");
-                move = scanner.next();
+                move = scanner.nextLine();
                 if (move.equalsIgnoreCase("Hit") || move.equalsIgnoreCase("H")) {
                 	move = "hit.";
                 	choice = 0;
+                	validInput = true;
                 } else if (move.equalsIgnoreCase("Stay") || move.equalsIgnoreCase("S")) {
                 	move = "stay.";
                 	choice = 1;
+                	validInput = true;
                 } else {
                     System.out.print("Please enter a valid move.");
                 }
-            } catch (Exception e) {
-                
-            }
         }
-        System.out.println("Okay, " + move); // TODO: How is this unreachable?
-        return choice; // TODO: This shows as unreachable too.
+        System.out.println("Okay, " + move);
+        return choice;
     }
 
     private String convertIntToStringName(int number) {
