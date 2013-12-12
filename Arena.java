@@ -35,12 +35,12 @@ public class Arena {
         Player player = new Player("Player", playerType, arena.input);
 
         House house = new House(player, numberOfGames);
-
+        
         for (int i = 0; i < numberOfGames; i++) {
-            house.play();
+        	house.play();
         }
 
-        //house.showResults();
+        house.showResults();
     }
 
     /**
@@ -50,7 +50,7 @@ public class Arena {
     public int getNumberOfGames() {
         while (true) {
             try {
-                System.out.println("How many houses would you like to play?");
+                System.out.println("How many games would you like to play?");
                 String value = input.nextLine();
 
                 numberOfGames = Integer.parseInt(value);

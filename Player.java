@@ -52,8 +52,8 @@ public class Player {
      */
     public String getPlayerTypeName() {
         switch (playerType) {
-            case HOUSE:
-                return "HOUSE";
+//            case HOUSE:
+//                return "HOUSE";
             case RANDOM:
                 return "RANDOM";
             case SMART:
@@ -84,6 +84,19 @@ public class Player {
         Deck deck = new Deck();
         Card card = deck.deal();
         return card;
+    }
+    public int randomPlayer() {
+    	int choice = 1;
+    	
+    	Random rand = new Random();
+    	
+    	choice = rand.nextInt(2);
+    	if (choice == 0) {
+    		takeHit();
+    	}
+    	return choice;
+    	
+    	
     }
 
     private int smartPlayer1(Card visibleCard) {
@@ -202,31 +215,36 @@ public class Player {
         return sticks;
     }
 
-    private int randomPlayer() {
-        int sticks = random.nextInt(3) + 1;
-        if (shouldShowGameplay) {
-            System.out.println(name + " took " + convertIntToStringName(sticks) + (sticks == 1 ? " matchstick" : " matchsticks") + ".");
-        }
-        return sticks;
-    }
+//    private int randomPlayer() {
+//        int sticks = random.nextInt(3) + 1;
+//        if (shouldShowGameplay) {
+//            System.out.println(name + " took " + convertIntToStringName(sticks) + (sticks == 1 ? " matchstick" : " matchsticks") + ".");
+//        }
+//        return sticks;
+//    }
 
     private int userPlayer() {
-        int sticks = 0;
+        String move;
+        int choice;
         while (true) {
             try {
-                System.out.println(name + " how many sticks would you like to take?:");
-                sticks = scanner.nextInt();
-                if (sticks <= 3 && sticks >= 1) {
-                    break;
+                System.out.println(name + " would you like to hit or stay?");
+                move = scanner.next();
+                if (move.equalsIgnoreCase("Hit") || move.equalsIgnoreCase("H")) {
+                	move = "hit.";
+                	choice = 0;
+                } else if (move.equalsIgnoreCase("Stay") || move.equalsIgnoreCase("S")) {
+                	move = "stay.";
+                	choice = 1;
                 } else {
-                    System.out.print("You can't take that many sticks. ");
+                    System.out.print("Please enter a valid move.");
                 }
             } catch (Exception e) {
                 
             }
         }
-        System.out.println("Okay, " + convertIntToStringName(sticks) + ".");
-        return sticks;
+        //System.out.println("Okay, " + move); // TODO: How is this unreachable?
+       // return choice; // TODO: This shows as unreachable too.
     }
 
     private String convertIntToStringName(int number) {

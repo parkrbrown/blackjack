@@ -8,7 +8,7 @@ public class Card {
     public static final int DIAMOND = 1;
 
     private static final String[] Suit = {"*", "D", "C", "H", "S"};
-    private static final String[] Rank = {"*", "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"}; //
+    private static final String[] Rank = {"*", "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
 
     private byte cardSuit;
     private byte cardRank;
@@ -36,10 +36,14 @@ public class Card {
     }
 
     public String rankStr() {
-        return (Rank[ cardRank]);
+        return (getRank()[ cardRank]);
     }
 
     public String toString() {
-        return (Rank[ cardRank] + Suit[ cardSuit]);
+        return (getRank()[ cardRank] + Suit[ cardSuit]);
     }
+
+	public static String[] getRank() {
+		return Rank;
+	}
 }
