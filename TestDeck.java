@@ -17,8 +17,6 @@ public class TestDeck
 
       b = a.deal();
       System.out.println("Deal a card: " + b);
-      Scanner input = new Scanner(System.in);
-      System.out.println();
       b = a.deal();
       System.out.println("Deal a card: " + b);
       b = a.deal();

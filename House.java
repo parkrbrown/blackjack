@@ -70,11 +70,12 @@ public class House {
         houseHand.add(deck.deal()); 
         playerHand.add(deck.deal());
         houseHand.add(deck.deal()); 
+        
         System.out.println(playerHand);
-        //System.out.println();
         System.out.println(houseHand);
         
-        //if (houseHand.)
+        System.out.println(playerHand.get(0)); // this is how to get the first card in the playerHand
+        
 
         // if house has blackjack
             // they win
