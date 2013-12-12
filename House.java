@@ -6,10 +6,6 @@
 package blackjack;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Scanner;
-
 /**
  * This class is for coordinating with the players (e.g., finding out what move the current player would like to make), declaring the winner, etc.
  * @author parkerbrown
