@@ -63,7 +63,9 @@ public class House {
         }
         currentTurn = PLAYER;
         
+        ArrayList deckToTestWith = new ArrayList();
         Deck deck = new Deck();   // get deck
+        deckToTestWith.add(deck);
         System.out.println(deck);
         deck.shuffle(1000);     // shuffle deck
         System.out.println(deck);
@@ -110,17 +112,15 @@ public class House {
         Card card = new Card();
         
         String[] array = card.getRank();
-        System.out.println(houseHand.get(0));
-        Deck deck2 = new Deck();
-        System.out.println(deck2);
-        
-        if (houseHandValue == 21 && (houseHand.get(0) == array[11] || houseHand.get(1) == array[11] 
-        		|| houseHand.get(0) == array[12] || houseHand.get(1) == array[12]
-        				|| houseHand.get(0) == array[13] || houseHand.get(1) == array[13])) {
+
+// TODO: Is there a better way to check if K, Q, or J without creating another deck to compare to?
+        if (houseHandValue == 21 && (houseHand.get(0) == deckToTestWith.get(11) || houseHand.get(1) == deckToTestWith.get(11) 
+        		|| houseHand.get(0) == deckToTestWith.get(12) || houseHand.get(1) == deckToTestWith.get(12)
+        				|| houseHand.get(0) == deckToTestWith.get(13) || houseHand.get(1) == deckToTestWith.get(13))) {
         	PLAYER.sayYouLose();
-        } else if (handValue == 21 && (playerHand.get(0) == array[11] || playerHand.get(1) == array[11] 
-        		|| playerHand.get(0) == array[12] || playerHand.get(1) == array[12]
-        				|| playerHand.get(0) == array[13] || playerHand.get(1) == array[13])) {
+        } else if (handValue == 21 && (playerHand.get(0) == deckToTestWith.get(11) || playerHand.get(1) == deckToTestWith.get(11) 
+        		|| playerHand.get(0) == deckToTestWith.get(12) || playerHand.get(1) == deckToTestWith.get(12)
+        				|| playerHand.get(0) == deckToTestWith.get(13) || playerHand.get(1) == deckToTestWith.get(13))) {
         	PLAYER.sayYouWin();
         } else {
 System.out.println("BLAH");
