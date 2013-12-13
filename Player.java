@@ -109,16 +109,11 @@ public class Player {
     }
 
     public int smartPlayer1(int visibleCard, int playerHand) {
-        int sticks = 0;
         int choice = 1;
         if (playerHand < 12) {
             choice = 0; // hit
         } if (visibleCard > 7 && playerHand < 17) {
             choice = 0; // hit 
-        }
-
-        if (shouldShowGameplay) {
-            //System.out.println(name + " took " + convertIntToStringName(sticks) + (sticks == 1 ? " matchstick" : " matchsticks") + ".");
         }
         return choice;
     }
@@ -135,7 +130,6 @@ public class Player {
             System.out.println(cardValue);
 
             handValue = handValue + cardValue;
-            //Take in first card in hand (RUN COUNTER), Take in dealer card (RUN COUNTER), take in 	second card in hand(RUN COUNTER)
             if (cardValue == 11 || cardValue == 1) {
                 count--;
             } else if (cardValue < 7) {

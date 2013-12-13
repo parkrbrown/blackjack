@@ -145,7 +145,7 @@ public class House {
                 if (playerType == PlayerType.RANDOM) {
                     choice = PLAYER.randomPlayer();
                 } else if (playerType == PlayerType.SMART) {
-                    choice = PLAYER.smartPlayer1(houseHandValueArray[1], handValueInt); // TODO: Figure out how to keep track of count inside and out of class
+                    choice = PLAYER.smartPlayer1(houseHandValueArray[1], handValueInt);
                 } else {
                     choice = PLAYER.userPlayer();
                 }
