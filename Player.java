@@ -18,8 +18,7 @@ public class Player {
     private PlayerType playerType;
     private String name;
     private Random random;
-    private int wins;
-    private int loses;
+    private int wins, loses, ties;
     private boolean shouldShowGameplay;
 
     public void setShouldShowGameplay(boolean value) {
@@ -36,6 +35,10 @@ public class Player {
 
     public int getLoses() {
         return loses;
+    }
+    
+    public int getTies() {
+    	return ties;
     }
 
     public PlayerType getPlayerType() {
@@ -72,6 +75,7 @@ public class Player {
         this.random = new Random();
         this.wins = 0;
         this.loses = 0;
+        this.ties = 0;
     }
 
     /**
@@ -85,7 +89,7 @@ public class Player {
         Card card = deck.deal();
         return card;
     }
-    private int randomPlayer() {
+    public int randomPlayer() {
     	int choice = 1;
     	
     	Random rand = new Random();
@@ -157,8 +161,8 @@ public class Player {
         return sticks;
     }
     
-    private int smartPlayer2(Card visibleCard, int[] playerHand) {
-        int count = 0, choice = -1;
+    public int smartPlayer2(int visibleCard, int[] playerHand, int count) {
+        int choice = 0;
         
         //Count cards
         
@@ -180,7 +184,7 @@ public class Player {
 //        return sticks;
 //    }
 
-    private int userPlayer() {
+    public int userPlayer() {
         String move = "";
         int choice = -1;
         boolean validInput = false;
@@ -220,8 +224,14 @@ public class Player {
     public void sayYouLose() {
         loses++;
         if (shouldShowGameplay) {
-            System.out.println(name + " took the last matchstick!");
+            System.out.println(name + " lost!");
         }
     }
 
+    public void sayYouTie() {
+    	ties++;
+    	if (shouldShowGameplay) {
+    		System.out.println(name + " tied with the House!");
+    	}
+    }
 }

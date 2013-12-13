@@ -36,6 +36,7 @@ public class Arena {
 
         House house = new House(player, numberOfGames);
         
+        //house.play();
         for (int i = 0; i < numberOfGames; i++) {
         	house.play();
         }

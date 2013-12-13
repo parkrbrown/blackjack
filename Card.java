@@ -22,9 +22,7 @@ public class Card {
 
         cardSuit = (byte) suit;
     }
-    public Card() {
-    	
-    }
+
     public int suit() {
         return (cardSuit);      // This is a shorthand for:  this.cardSuit
     }
@@ -47,5 +45,9 @@ public class Card {
 
 	public static String[] getRank() {
 		return Rank;
+	}
+	
+	public static String[] getSuit() {
+		return Suit;
 	}
 }
