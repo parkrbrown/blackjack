@@ -80,11 +80,11 @@ public class House {
         playerHand.add(deck.deal());
         houseHandValue.add(deck.dealValue());
         houseHand.add(deck.deal());
-        
-//        System.out.println(playerHand);
-//        System.out.println(playerHandValue);
-//        System.out.println(houseHand);
-//        System.out.println(houseHandValue);
+                
+        System.out.println(playerHand);
+        System.out.println(playerHandValue);
+        System.out.println(houseHand);
+        System.out.println(houseHandValue);
 
        	//System.out.println(playerHand.get(0)); // this is how to get the first card in the playerHand
        
@@ -93,6 +93,17 @@ public class House {
        	
         int handValueInt = playerHandValueArray[0] + playerHandValueArray[1];
         int houseHandValueInt = houseHandValueArray[0] + houseHandValueArray[1];
+        
+        if (handValueInt > 21) {
+        	handValueInt -= 10;
+        }
+        if (houseHandValueInt > 21) {
+        	houseHandValueInt -= 10;
+        }
+        
+        // TODO: Make sure that if hand holds two aces a value of 10 is subtracted to give accurate count
+        // TODO: Make sure that if hand holds ace and goes over 21 that value of 1- is subtracted
+
         
 //        System.out.println(handValueInt);
 //        System.out.println(houseHandValue);
@@ -130,7 +141,7 @@ public class House {
         		if (playerType == PlayerType.RANDOM) {
         			choice = PLAYER.randomPlayer();
         		} else if (playerType == PlayerType.SMART) {
-        			choice = PLAYER.smartPlayer2(houseHandValueArray[1], playerHandValueArray, cardCount); // TODO: Figure out how to keep track of count inside and out of class
+        			choice = PLAYER.smartPlayer2(houseHandValueArray[1], playerHandValueArray); // TODO: Figure out how to keep track of count inside and out of class
         		} else {
         			choice = PLAYER.userPlayer();
         		}

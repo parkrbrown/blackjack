@@ -5,7 +5,7 @@ public class Deck {
     public static final int NCARDS = 52;
 
     private Card[] deck;         // Contains all 52 cards
-    int[] deckValue = {11,2,3,4,5,6,7,8,9,10,10,10,10,1,2,3,4,5,6,7,8,9,10,10,10,10,11,2,3,4,5,6,7,8,9,10,10,10,10,11,2,3,4,5,6,7,8,9,10,10,10,10};
+    int[] deckValue = {11,2,3,4,5,6,7,8,9,10,10,10,10,11,2,3,4,5,6,7,8,9,10,10,10,10,11,2,3,4,5,6,7,8,9,10,10,10,10,11,2,3,4,5,6,7,8,9,10,10,10,10};
     private int currentCard;            // deal THIS card in deck
 
     public Deck() {

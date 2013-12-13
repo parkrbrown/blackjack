@@ -19,6 +19,7 @@ public class Player {
     private String name;
     private Random random;
     private int wins, loses, ties;
+    private double count;
     private boolean shouldShowGameplay;
 
     public void setShouldShowGameplay(boolean value) {
@@ -76,6 +77,7 @@ public class Player {
         this.wins = 0;
         this.loses = 0;
         this.ties = 0;
+        this.count = 0;
     }
 
     /**
@@ -161,10 +163,52 @@ public class Player {
         return sticks;
     }
     
-    public int smartPlayer2(int visibleCard, int[] playerHand, int count) {
-        int choice = 0;
-        
-        //Count cards
+    public int smartPlayer2(int visibleCard, int[] playerHand) {
+      int choice = -1, cardValue = 100, handValue = 0;      
+      
+      	for (int i = 0; i < playerHand.length + 1; i++) {
+      		if (i >= playerHand.length) {
+      			cardValue = visibleCard;
+      		} else {
+      			cardValue = playerHand[i];
+      		}
+System.out.println(cardValue);
+      		
+      		handValue = handValue + cardValue;
+      //Take in first card in hand (RUN COUNTER), Take in dealer card (RUN COUNTER), take in 	second card in hand(RUN COUNTER)
+      		if (cardValue == 11 || cardValue == 1) {
+      			count--;
+      		} else if (cardValue < 7) {
+      			count++;
+      		} else if (cardValue == 10) {
+      			count--;
+      		}
+      		System.out.println("Count after card " + i);
+      		System.out.println(count);
+      	}
+System.out.println(count);
+System.exit(0);
+      if (handValue <= 11) {
+      	choice = 0;
+      } else if (handValue >= 12 && handValue <= 16) {
+    	  if (count == 0 || count < 0) {
+    		  choice = 0;
+    	  } else if (count > 0) {
+      		choice = 1;
+    	  }
+      } else if (handValue > 16 && handValue < 18) {
+    	  if (count > 0) {
+    		  choice = 1;
+    	  } else if (count <= 0) {
+    		  choice = 0;
+    	  }
+      } else if (handValue >= 18) {
+    	  if (count >= 0) {
+    		  choice = 1;
+    	  } else if (count < 0) {
+    		  choice = 0;
+    	  }
+      }
         
         if (shouldShowGameplay) {
         	if (choice == 0) {
