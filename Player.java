@@ -108,19 +108,19 @@ public class Player {
 
     }
 
-    private int smartPlayer1(Card visibleCard) {
+    public int smartPlayer1(int visibleCard, int playerHand) {
         int sticks = 0;
-        while (playerHand.value > 12) {
-            // take hit
-        }
-        if (visibleCard.value < 7) {
-
+        int choice = 1;
+        if (playerHand < 12) {
+            choice = 0; // hit
+        } if (visibleCard > 7 && playerHand < 17) {
+            choice = 0; // hit 
         }
 
         if (shouldShowGameplay) {
             //System.out.println(name + " took " + convertIntToStringName(sticks) + (sticks == 1 ? " matchstick" : " matchsticks") + ".");
         }
-        return sticks;
+        return choice;
     }
 
     public int smartPlayer2(int visibleCard, int[] playerHand) {

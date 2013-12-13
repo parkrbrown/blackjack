@@ -23,6 +23,8 @@ public class House {
     //private final int MAX_STICKS_THAT_CAN_BE_TAKEN;
 
     private Player currentTurn;
+    
+    private int gamesPlayed = 0;
 
 //    ArrayList houseHand = new ArrayList();
 //    ArrayList houseHandValue = new ArrayList();
@@ -66,7 +68,13 @@ public class House {
         ArrayList playerHandValue = new ArrayList();
 
         if (shouldShowGameplay()) {
-            System.out.println("Okay, " + PLAYER.getPlayerTypeName()); // 
+            if (gamesPlayed == 0){
+                System.out.println("Okay, " + PLAYER.getPlayerTypeName());
+            } else {
+                System.out.println(); // line break for new game
+                System.out.println("Here is your new hand: ");
+            }
+            
         }
 
         Deck deck = new Deck();   // get deck
@@ -137,7 +145,7 @@ public class House {
                 if (playerType == PlayerType.RANDOM) {
                     choice = PLAYER.randomPlayer();
                 } else if (playerType == PlayerType.SMART) {
-                    choice = PLAYER.smartPlayer2(houseHandValueArray[1], playerHandValueArray); // TODO: Figure out how to keep track of count inside and out of class
+                    choice = PLAYER.smartPlayer1(houseHandValueArray[1], handValueInt); // TODO: Figure out how to keep track of count inside and out of class
                 } else {
                     choice = PLAYER.userPlayer();
                 }
@@ -174,9 +182,11 @@ public class House {
                     houseHand.add(deck.deal());
                     houseHandValueArray = convertToArray(houseHandValue);
                     //houseHandValueInt = 0;
-                    for (int i = 0; i < playerHand.size(); i++) {
-                        houseHandValueInt = houseHandValueInt + playerHandValueArray[i];
-                    }
+                   // for (int i = 0; i < houseHand.size(); i++) {
+                        houseHandValueInt = houseHandValueInt + houseHandValueArray[houseHand.size()-1];
+                        System.out.println("House hand: " + houseHand);
+                        System.out.println("House hand value: " + houseHandValueInt);
+                   // }
                 } else if (houseHandValueInt > 21) {
                     System.out.println("House bust");
                     houseBust = true;
@@ -197,6 +207,7 @@ public class House {
             }
             noOneWonYet = false;
         }
+        gamesPlayed++;
     }
 
     //Converts ArrayList of ints to int[] array
