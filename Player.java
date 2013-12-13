@@ -9,7 +9,9 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- * This class represents a player.  Depending on the type of Player this class is constructed with, it should behave accordingly.
+ * This class represents a player. Depending on the type of Player this class is
+ * constructed with, it should behave accordingly.
+ *
  * @author parkerbrown
  */
 public class Player {
@@ -37,9 +39,9 @@ public class Player {
     public int getLoses() {
         return loses;
     }
-    
+
     public int getTies() {
-    	return ties;
+        return ties;
     }
 
     public PlayerType getPlayerType() {
@@ -52,6 +54,7 @@ public class Player {
 
     /**
      * Gets the player type
+     *
      * @return
      */
     public String getPlayerTypeName() {
@@ -91,87 +94,88 @@ public class Player {
         Card card = deck.deal();
         return card;
     }
+
     public int randomPlayer() {
-    	int choice = 1;
-    	
-    	Random rand = new Random();
-    	
-    	choice = rand.nextInt(2);
-    	if (choice == 0) {
-    		takeHit();
-    	}
-    	return choice;
-    	
-    	
+        int choice = 1;
+
+        Random rand = new Random();
+
+        choice = rand.nextInt(2);
+        if (choice == 0) {
+            takeHit();
+        }
+        return choice;
+
     }
 
     private int smartPlayer1(Card visibleCard) {
         int sticks = 0;
-        while (playerHand.value > 12){
+        while (playerHand.value > 12) {
             // take hit
-        } if (visibleCard.value <7){
-            
         }
-        
+        if (visibleCard.value < 7) {
+
+        }
+
         if (shouldShowGameplay) {
             //System.out.println(name + " took " + convertIntToStringName(sticks) + (sticks == 1 ? " matchstick" : " matchsticks") + ".");
         }
         return sticks;
-}
-    
+    }
+
     public int smartPlayer2(int visibleCard, int[] playerHand) {
-      int choice = -1, cardValue = 100, handValue = 0;      
-      
-      	for (int i = 0; i < playerHand.length + 1; i++) {
-      		if (i >= playerHand.length) {
-      			cardValue = visibleCard;
-      		} else {
-      			cardValue = playerHand[i];
-      		}
-System.out.println(cardValue);
-      		
-      		handValue = handValue + cardValue;
-      //Take in first card in hand (RUN COUNTER), Take in dealer card (RUN COUNTER), take in 	second card in hand(RUN COUNTER)
-      		if (cardValue == 11 || cardValue == 1) {
-      			count--;
-      		} else if (cardValue < 7) {
-      			count++;
-      		} else if (cardValue == 10) {
-      			count--;
-      		}
-      		System.out.println("Count after card " + i);
-      		System.out.println(count);
-      	}
-System.out.println(count);
-System.exit(0);
-      if (handValue <= 11) {
-      	choice = 0;
-      } else if (handValue >= 12 && handValue <= 16) {
-    	  if (count == 0 || count < 0) {
-    		  choice = 0;
-    	  } else if (count > 0) {
-      		choice = 1;
-    	  }
-      } else if (handValue > 16 && handValue < 18) {
-    	  if (count > 0) {
-    		  choice = 1;
-    	  } else if (count <= 0) {
-    		  choice = 0;
-    	  }
-      } else if (handValue >= 18) {
-    	  if (count >= 0) {
-    		  choice = 1;
-    	  } else if (count < 0) {
-    		  choice = 0;
-    	  }
-      }
-        
+        int choice = -1, cardValue = 100, handValue = 0;
+
+        for (int i = 0; i < playerHand.length + 1; i++) {
+            if (i >= playerHand.length) {
+                cardValue = visibleCard;
+            } else {
+                cardValue = playerHand[i];
+            }
+            System.out.println(cardValue);
+
+            handValue = handValue + cardValue;
+            //Take in first card in hand (RUN COUNTER), Take in dealer card (RUN COUNTER), take in 	second card in hand(RUN COUNTER)
+            if (cardValue == 11 || cardValue == 1) {
+                count--;
+            } else if (cardValue < 7) {
+                count++;
+            } else if (cardValue == 10) {
+                count--;
+            }
+            System.out.println("Count after card " + i);
+            System.out.println(count);
+        }
+        System.out.println(count);
+        System.exit(0);
+        if (handValue <= 11) {
+            choice = 0;
+        } else if (handValue >= 12 && handValue <= 16) {
+            if (count == 0 || count < 0) {
+                choice = 0;
+            } else if (count > 0) {
+                choice = 1;
+            }
+        } else if (handValue > 16 && handValue < 18) {
+            if (count > 0) {
+                choice = 1;
+            } else if (count <= 0) {
+                choice = 0;
+            }
+        } else if (handValue >= 18) {
+            if (count >= 0) {
+                choice = 1;
+            } else if (count < 0) {
+                choice = 0;
+            }
+        }
+
         if (shouldShowGameplay) {
-        	if (choice == 0) {
-        		System.out.println(name + " chose to hit.");
-        	} else {
-        		System.out.println(name + " chose to stay.");
-        	}
+            if (choice == 0) {
+                System.out.println(name + " chose to hit.");
+            } else {
+                System.out.println(name + " chose to stay.");
+            }
         }
         return choice;
     }
@@ -183,31 +187,29 @@ System.exit(0);
 //        }
 //        return sticks;
 //    }
-
     public int userPlayer() {
         String move = "";
         int choice = -1;
         boolean validInput = false;
         while (validInput == false) {
-                System.out.println(name + " would you like to hit or stay?");
-                move = scanner.nextLine();
-                if (move.equalsIgnoreCase("Hit") || move.equalsIgnoreCase("H")) {
-                	move = "hit.";
-                	choice = 0;
-                	validInput = true;
-                } else if (move.equalsIgnoreCase("Stay") || move.equalsIgnoreCase("S")) {
-                	move = "stay.";
-                	choice = 1;
-                	validInput = true;
-                } else {
-                    System.out.print("Please enter a valid move.");
-                }
+            System.out.println(name + " would you like to hit or stay?");
+            move = scanner.next();
+            if (move.equalsIgnoreCase("Hit") || move.equalsIgnoreCase("H")) {
+                move = "hit.";
+                choice = 0;
+                validInput = true;
+            } else if (move.equalsIgnoreCase("Stay") || move.equalsIgnoreCase("S")) {
+                move = "stay.";
+                choice = 1;
+                validInput = true;
+            } else {
+                System.out.print("Please enter a valid move. ");
+            }
         }
         System.out.println("Okay, " + move);
         return choice;
     }
 
-    
     /**
      * This method tells the player that they won
      */
@@ -229,9 +231,9 @@ System.exit(0);
     }
 
     public void sayYouTie() {
-    	ties++;
-    	if (shouldShowGameplay) {
-    		System.out.println(name + " tied with the House!");
-    	}
+        ties++;
+        if (shouldShowGameplay) {
+            System.out.println(name + " tied with the House!");
+        }
     }
 }
