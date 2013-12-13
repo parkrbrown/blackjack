@@ -107,61 +107,17 @@ public class Player {
 
     private int smartPlayer1(Card visibleCard) {
         int sticks = 0;
-        // TARGET NUMBERS:  13, 9, 5, 1
-        switch (sticksLeft) {
-            case 15:
-                sticks = 2; // to get to target number 13
-                break;
-            case 14:
-                sticks = 1; // to get to target number 13
-                break;
-            case 13:
-                sticks = 2; // shot in the dark
-                break;
-            case 12:
-                sticks = 3; // to get to target number 9
-                break;
-            case 11:
-                sticks = 2; // to get to target number 9
-                break;
-            case 10:
-                sticks = 1; // to get to target number 9
-                break;
-            case 9:
-                sticks = 2; // shot in the dark
-                break;
-            case 8:
-                sticks = 3; // to get the target number 5
-                break;
-            case 7:
-                sticks = 2; // to get to target number 5
-                break;
-            case 6:
-                sticks = 1; // to get to target number 5
-                break;
-            case 5:
-                sticks = 2; // shot in the dark
-                break;
-            case 4:
-                sticks = 3; // to get to target number 1
-                break;
-            case 3:
-                sticks = 2; // to get to target number 1
-                break;
-            case 2:
-                sticks = 1; // to get to target number 1
-                break;
-            case 1:
-                sticks = 1; // defeat
-                break;
-            default:
-                break; //
+        while (playerHand.value > 12){
+            // take hit
+        } if (visibleCard.value <7){
+            
         }
+        
         if (shouldShowGameplay) {
             //System.out.println(name + " took " + convertIntToStringName(sticks) + (sticks == 1 ? " matchstick" : " matchsticks") + ".");
         }
         return sticks;
-    }
+}
     
     public int smartPlayer2(int visibleCard, int[] playerHand) {
       int choice = -1, cardValue = 100, handValue = 0;      
