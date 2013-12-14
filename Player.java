@@ -222,11 +222,4 @@ public class Player {
         System.out.println("House wins!");
         }
     }
-
-    public void sayYouTie() {
-        ties++;
-        if (shouldShowGameplay) {
-            System.out.println(name + " tied with the House!");
-        }
-    }
 }

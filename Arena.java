@@ -30,7 +30,7 @@ public class Arena {
         System.out.println("Welcome to Blackjack!");
         int numberOfGames = 100;//arena.getNumberOfGames();
         // System.out.println("How many players will be playing against the house?"); // Stretch goal
-        PlayerType playerType = PlayerType.SMART;//arena.getPlayerType("What kind of player will be playing against the house?");
+        PlayerType playerType = PlayerType.USER;//arena.getPlayerType("What kind of player will be playing against the house?");
 
         Player player = new Player("Player", playerType, arena.input);
 

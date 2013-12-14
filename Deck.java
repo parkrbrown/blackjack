@@ -56,11 +56,11 @@ public class Deck {
     		return (0);
     	}
     }
-    // TODO: remove card dealt from stack
+
     public Card deal() {
         if (currentCard < NCARDS) {
-            return (deck[ currentCard++]); // TODO: Remove ++ once dealt cards are removed from deck
-        } else { // TODO: shuffle, remove cards on table, deal
+            return (deck[ currentCard++]);
+        } else {
             currentCard = 0;
             return (null);  // Error;
         }
