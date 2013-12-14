@@ -5,6 +5,7 @@
  */
 package blackjack;
 
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  * This class is for coordinating with the players (e.g., finding out what move
  * the current player would like to make), declaring the winner, etc.
  *
- * @author parkerbrown
+ * @author parkerbrown & Zach Bunyard
  */
 public class House {
 
@@ -33,7 +34,11 @@ public class House {
     private Card rank;
 
     private boolean shouldShowGameplay() {
-        return PLAYER.getPlayerType() == PlayerType.USER;
+    	if (PLAYER.getPlayerType() == PlayerType.USER) {
+    		return true;
+    	} else {
+    		return false;
+    	}
     }
 
     /**
@@ -66,6 +71,8 @@ public class House {
         ArrayList houseHandValue = new ArrayList();
         ArrayList playerHand = new ArrayList();
         ArrayList playerHandValue = new ArrayList();
+        
+        boolean typeOfPlayer = shouldShowGameplay();
 
         if (shouldShowGameplay()) {
             if (gamesPlayed == 0){
@@ -134,7 +141,7 @@ public class House {
         }
         //Only starts if neither player nor house have blackjack
         while (noOneWonYet == true) {
-            int choice = 0, cardCount = 0;
+            int choice = 0;
             boolean endOfTurn = false;
             boolean playerBust = false, houseBust = false;
 
@@ -147,13 +154,13 @@ public class House {
                 } else if (playerType == PlayerType.SMART) {
                     choice = PLAYER.smartPlayer1(houseHandValueArray[1], handValueInt);
                 } else {
+                	System.out.println(playerHand);
                     choice = PLAYER.userPlayer();
                 }
 
                 if (choice == 0) {
                     playerHandValue.add(deck.dealValue());
                     playerHand.add(deck.deal());
-                    System.out.println(playerHand);
                     playerHandValueArray = convertToArray(playerHandValue);
                     handValueInt = 0;
                     for (int i = 0; i < playerHand.size(); i++) {
@@ -167,7 +174,9 @@ public class House {
                 }
 
                 if (handValueInt > 21) {
-                    System.out.println("Player bust");
+                	if (shouldShowGameplay()) {
+                		System.out.println("Player bust");
+                	}
                     playerBust = true;
                     endOfTurn = true;
                 } else if (handValueInt == 21) {
@@ -176,33 +185,35 @@ public class House {
             }
             endOfTurn = false;
             while (endOfTurn == false) {
+            	if (shouldShowGameplay()) {
+            		System.out.println("House hand: " + houseHand);
+            	}
                 if (houseHandValueInt < 17) {
-                    System.out.println(houseHandValue);
                     houseHandValue.add(deck.dealValue());
                     houseHand.add(deck.deal());
-                    houseHandValueArray = convertToArray(houseHandValue);
-                    //houseHandValueInt = 0;
-                   // for (int i = 0; i < houseHand.size(); i++) {
-                        houseHandValueInt = houseHandValueInt + houseHandValueArray[houseHand.size()-1];
-                        System.out.println("House hand: " + houseHand);
-                        System.out.println("House hand value: " + houseHandValueInt);
-                   // }
+                    if (shouldShowGameplay()) {
+                    	System.out.println("House hits: " + houseHand);
+                    }
+                houseHandValueArray = convertToArray(houseHandValue);
+                houseHandValueInt = houseHandValueInt + houseHandValueArray[houseHand.size()-1];
                 } else if (houseHandValueInt > 21) {
-                    System.out.println("House bust");
+                	if (shouldShowGameplay()) {
+                		System.out.println("House bust");
+                	}
                     houseBust = true;
                     endOfTurn = true;
                 } else {
+                	if (shouldShowGameplay()) {
+                		System.out.println("House stays: " + houseHand);
+                	}
                     endOfTurn = true;
                 }
             }
             if ((playerBust == false && houseBust == true) || (handValueInt > houseHandValueInt && handValueInt <= 21)) {
-                System.out.println("Player wins!");
                 PLAYER.sayYouWin();
             } else if ((playerBust == true && houseBust == false) || (houseHandValueInt > handValueInt && houseHandValueInt <= 21) || (playerBust == true && houseBust == true)) {
-                System.out.println("House wins!");
                 PLAYER.sayYouLose();
             } else if (handValueInt == houseHandValueInt || (handValueInt > 21 && houseHandValueInt > 21)) {
-                System.out.println("Tie!");
                 PLAYER.sayYouTie();
             }
             noOneWonYet = false;

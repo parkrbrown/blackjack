@@ -1,4 +1,9 @@
 package blackjack;
+/**
+ * This contains the information to produce cards you would find in a 52 card deck.
+ * @author Zachary Bunyard & Parker Brown
+ *
+ */
 
 public class Card {
 

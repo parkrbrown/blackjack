@@ -1,4 +1,9 @@
 package blackjack;
+/**
+ * This class takes information from Card class to produce a complete and shuffled 52 card deck.
+ * @author Zachary Bunyard & Parker Brown
+ *
+ */
 
 public class Deck {
 
@@ -47,17 +52,16 @@ public class Deck {
     	if (currentCard < NCARDS) {
     		return (deckValue[ currentCard]);
     	} else {
-    		System.out.println("ERROR");
+    		currentCard = 0;;
     		return (0);
     	}
     }
-    // deal(): deal deck[currentCard] out
     // TODO: remove card dealt from stack
     public Card deal() {
         if (currentCard < NCARDS) {
             return (deck[ currentCard++]); // TODO: Remove ++ once dealt cards are removed from deck
         } else { // TODO: shuffle, remove cards on table, deal
-            System.out.println("Out of cards error");
+            currentCard = 0;
             return (null);  // Error;
         }
     }

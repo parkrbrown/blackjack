@@ -4,16 +4,15 @@
  * and open the template in the editor.
  */
 package blackjack;
-
-import java.util.Random;
-import java.util.Scanner;
-
 /**
  * This class represents a player. Depending on the type of Player this class is
  * constructed with, it should behave accordingly.
  *
- * @author parkerbrown
+ * @author parkerbrown & Zach Bunyard
  */
+import java.util.Random;
+import java.util.Scanner;
+
 public class Player {
 
     private Scanner scanner;
@@ -220,7 +219,7 @@ public class Player {
     public void sayYouLose() {
         loses++;
         if (shouldShowGameplay) {
-            System.out.println(name + " lost!");
+        System.out.println("House wins!");
         }
     }
 

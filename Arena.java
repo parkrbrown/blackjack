@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 /**
  * This class is the driver class, where the main method is. It will ask the end user how many houses will be played and which kinds of users will be playing.
- * @author parkerbrown
+ * @author parkerbrown & Zach Bunyard
  */
 public class Arena {
 
@@ -23,14 +23,14 @@ public class Arena {
      * @param args
      * @throws InterruptedException
      */
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {//throws InterruptedException { // TODO: Program appears to work without this but you claim that we need it?
 
         Arena arena = new Arena();
 
         System.out.println("Welcome to Blackjack!");
-        int numberOfGames = arena.getNumberOfGames();
+        int numberOfGames = 100;//arena.getNumberOfGames();
         // System.out.println("How many players will be playing against the house?"); // Stretch goal
-        PlayerType playerType = arena.getPlayerType("What kind of player will be playing against the house?");
+        PlayerType playerType = PlayerType.SMART;//arena.getPlayerType("What kind of player will be playing against the house?");
 
         Player player = new Player("Player", playerType, arena.input);
 
