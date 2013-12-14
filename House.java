@@ -129,6 +129,7 @@ public class House {
         // Determine if either House or player have Blackjack hand TODO: Get blackjack checker working
         String[] array = Card.getRank();
         String[] array2 = Card.getSuit();
+        //Card[] cardFace;
         String cardFace;
         int i, j;
         
@@ -136,12 +137,21 @@ public class House {
         	for (i = 1; i < 5; i++) {
         		for (j = 11; j < 14; j++) {
         			cardFace = array[j] + array2[i];
-        			System.out.println(cardFace); // Works up to this point
+        			System.out.println(cardFace); // Works up to this point TODO: Remove after testing
+        			System.out.println(houseHand); // TODO: Remove after testing
+        			System.out.println(playerHand); // TODO: Remove after testing
+        			
+        			
+        			//If statement doesn't show any conditions to be true, even if they are.
+        			
+        			
         			if (houseHand.get(0) == cardFace || houseHand.get(1) == cardFace) { //Seems to be a break point
         				System.out.println("House has Blackjack!");
+        				noOneWonYet = false;
         				PLAYER.sayYouLose();
         			} else if (playerHand.get(0) == cardFace || playerHand.get(1) == cardFace) { //Also part of break point
         				System.out.println("Player has Blackjack!");
+        				noOneWonYet = false;
         				PLAYER.sayYouWin();
         			}
         		}
