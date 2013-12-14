@@ -19,7 +19,7 @@ public class Player {
     private PlayerType playerType;
     private String name;
     private Random random;
-    private int wins, loses, ties;
+    private int wins, loses, playerGotBlackjack, houseGotBlackjack;
     private double count;
     private boolean shouldShowGameplay;
 
@@ -39,8 +39,12 @@ public class Player {
         return loses;
     }
 
-    public int getTies() {
-        return ties;
+    public int getPlayerBlackjacks() {
+        return playerGotBlackjack;
+    }
+    
+    public int getHouseBlackjacks() {
+    	return houseGotBlackjack;
     }
 
     public PlayerType getPlayerType() {
@@ -78,8 +82,8 @@ public class Player {
         this.random = new Random();
         this.wins = 0;
         this.loses = 0;
-        this.ties = 0;
-        this.count = 0;
+        this.houseGotBlackjack = 0;
+        this.playerGotBlackjack = 0;
     }
 
     /**
@@ -117,69 +121,6 @@ public class Player {
         return choice;
     }
 
-    public int smartPlayer2(int visibleCard, int[] playerHand) {
-        int choice = -1, cardValue = 100, handValue = 0;
-
-        for (int i = 0; i < playerHand.length + 1; i++) {
-            if (i >= playerHand.length) {
-                cardValue = visibleCard;
-            } else {
-                cardValue = playerHand[i];
-            }
-            System.out.println(cardValue);
-
-            handValue = handValue + cardValue;
-            if (cardValue == 11 || cardValue == 1) {
-                count--;
-            } else if (cardValue < 7) {
-                count++;
-            } else if (cardValue == 10) {
-                count--;
-            }
-            System.out.println("Count after card " + i);
-            System.out.println(count);
-        }
-        System.out.println(count);
-        System.exit(0);
-        if (handValue <= 11) {
-            choice = 0;
-        } else if (handValue >= 12 && handValue <= 16) {
-            if (count == 0 || count < 0) {
-                choice = 0;
-            } else if (count > 0) {
-                choice = 1;
-            }
-        } else if (handValue > 16 && handValue < 18) {
-            if (count > 0) {
-                choice = 1;
-            } else if (count <= 0) {
-                choice = 0;
-            }
-        } else if (handValue >= 18) {
-            if (count >= 0) {
-                choice = 1;
-            } else if (count < 0) {
-                choice = 0;
-            }
-        }
-
-        if (shouldShowGameplay) {
-            if (choice == 0) {
-                System.out.println(name + " chose to hit.");
-            } else {
-                System.out.println(name + " chose to stay.");
-            }
-        }
-        return choice;
-    }
-
-//    private int randomPlayer() {
-//        int sticks = random.nextInt(3) + 1;
-//        if (shouldShowGameplay) {
-//            System.out.println(name + " took " + convertIntToStringName(sticks) + (sticks == 1 ? " matchstick" : " matchsticks") + ".");
-//        }
-//        return sticks;
-//    }
     public int userPlayer() {
         String move = "";
         int choice = -1;
@@ -219,7 +160,21 @@ public class Player {
     public void sayYouLose() {
         loses++;
         if (shouldShowGameplay) {
-        System.out.println("House wins!");
+        	System.out.println("House wins!");
         }
+    }
+    
+    public void sayYouGotBlackjack() {
+    	playerGotBlackjack++;
+    	if (shouldShowGameplay) {
+    		System.out.println(getPlayerTypeName() + " got Blackjack!");
+    	}
+    }
+    
+    public void sayYouLostToBlackjack() {
+    	houseGotBlackjack++;
+    	if (shouldShowGameplay) {
+    		System.out.println("House got Blackjack!");
+    	}
     }
 }

@@ -110,12 +110,6 @@ public class House {
         if (houseHandValueInt > 21) {
             houseHandValueInt -= 10;
         }
-        
-        //Checks if house or player have blackjack and if not continues game. Otherwise, declares winner.
-        System.out.println("House: " + houseHandValueInt);
-        System.out.println("House: " + houseHand);
-        System.out.println("Player: " + handValueInt);
-        System.out.println("Player: " + playerHand);
 
         if (shouldShowGameplay()) {
             System.out.println("Your hand: " + playerHand);
@@ -135,12 +129,18 @@ public class House {
         		for (j = 11; j < 14; j++) {
         			cardFace = array[j] + array2[i];
         			if (houseHand.get(0).toString().equals(cardFace) || houseHand.get(1).toString().equals(cardFace)) {
-        				System.out.println("House has Blackjack!");
+        				if (shouldShowGameplay()) {
+        					System.out.println("House has Blackjack!");
+        				}
         				noOneWonYet = false;
+        				PLAYER.sayYouLostToBlackjack();
         				PLAYER.sayYouLose();
         			} else if (playerHand.get(0).toString().equals(cardFace) || playerHand.get(1).toString().equals(cardFace)) {
-        				System.out.println("Player has Blackjack!");
+        				if (shouldShowGameplay()) {
+        					System.out.println("Player has Blackjack!");
+        				}
         				noOneWonYet = false;
+        				PLAYER.sayYouGotBlackjack();
         				PLAYER.sayYouWin();
         			}
         		}
@@ -241,14 +241,16 @@ public class House {
         }
         System.out.println(PLAYER.getPlayerTypeName() + " wins: " + PLAYER.getWins());
         System.out.println("House wins: " + PLAYER.getLoses());
-        System.out.println("Ties: " + PLAYER.getTies());
+        System.out.println(PLAYER.getPlayerTypeName() + " Blackjack wins: " + PLAYER.getPlayerBlackjacks());
+        System.out.println("House Blackjack wins: " + PLAYER.getHouseBlackjacks());
 
         DecimalFormat fmt = new DecimalFormat("0.00#");
         double winPercent = (100 * ((PLAYER.getWins() / (double) NUMBER_OF_GAMES)));// + 0.0005));
         double lossPercent = (100 * ((PLAYER.getLoses() / (double) NUMBER_OF_GAMES)));// + 0.0005));
-        double tiePercent = (100 * ((PLAYER.getTies() / (double) NUMBER_OF_GAMES)));
-        System.out.println("Player One wins: " + fmt.format(winPercent) + "%");
-        System.out.println("Player One losses: " + fmt.format(lossPercent) + "%");
-        System.out.println("Ties: " + fmt.format(tiePercent) + "%");
+        double playerBlackjackPercent = (100 * ((PLAYER.getPlayerBlackjacks() / (double) NUMBER_OF_GAMES)));
+        double houseBlackjackPercent = (100 * ((PLAYER.getHouseBlackjacks() / (double) NUMBER_OF_GAMES)));
+        System.out.println(PLAYER.getPlayerTypeName() + " wins: " + fmt.format(winPercent) + "%");
+        System.out.println("House wins: " + fmt.format(lossPercent) + "%");
+        System.out.println(PLAYER.getPlayerTypeName() + " got Blackjack: " + fmt.format(playerBlackjackPercent) + "%");
     }
 }
