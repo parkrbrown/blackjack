@@ -28,9 +28,9 @@ public class Arena {
         Arena arena = new Arena();
 
         System.out.println("Welcome to Blackjack!");
-        int numberOfGames = 100;//arena.getNumberOfGames(); // TODO: Comment back in after testing is complete
+        int numberOfGames = arena.getNumberOfGames(); // TODO: Comment back in after testing is complete
         // System.out.println("How many players will be playing against the house?"); // Stretch goal
-        PlayerType playerType = PlayerType.USER;//arena.getPlayerType("What kind of player will be playing against the house?"); // TODO: Comment back in after testing is complete
+        PlayerType playerType = arena.getPlayerType("What kind of player will be playing against the house?"); // TODO: Comment back in after testing is complete
 
         Player player = new Player("Player", playerType, arena.input);
 

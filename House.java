@@ -73,7 +73,6 @@ public class House {
         ArrayList playerHandValue = new ArrayList();
         
         boolean typeOfPlayer = shouldShowGameplay();
-        boolean playerHasTwoAces = false, houseHasTwoAces = false;
 
         if (shouldShowGameplay()) {
             if (gamesPlayed == 0){
@@ -107,11 +106,9 @@ public class House {
 
         if (handValueInt > 21) {
             handValueInt -= 10;
-            playerHasTwoAces = true;
         }
         if (houseHandValueInt > 21) {
             houseHandValueInt -= 10;
-            houseHasTwoAces = true;
         }
         
         //Checks if house or player have blackjack and if not continues game. Otherwise, declares winner.
@@ -126,7 +123,7 @@ public class House {
         }
 
         boolean noOneWonYet = true;
-        // Determine if either House or player have Blackjack hand TODO: Get blackjack checker working
+        // Determine if either House or player have Blackjack hand
         String[] array = Card.getRank();
         String[] array2 = Card.getSuit();
         //Card[] cardFace;
@@ -137,29 +134,18 @@ public class House {
         	for (i = 1; i < 5; i++) {
         		for (j = 11; j < 14; j++) {
         			cardFace = array[j] + array2[i];
-        			System.out.println(cardFace); // Works up to this point TODO: Remove after testing
-        			System.out.println(houseHand); // TODO: Remove after testing
-        			System.out.println(playerHand); // TODO: Remove after testing
-        			
-        			
-        			//If statement doesn't show any conditions to be true, even if they are.
-        			
-        			
-        			if (houseHand.get(0) == cardFace || houseHand.get(1) == cardFace) { //Seems to be a break point
+        			if (houseHand.get(0).toString().equals(cardFace) || houseHand.get(1).toString().equals(cardFace)) {
         				System.out.println("House has Blackjack!");
         				noOneWonYet = false;
         				PLAYER.sayYouLose();
-        			} else if (playerHand.get(0) == cardFace || playerHand.get(1) == cardFace) { //Also part of break point
+        			} else if (playerHand.get(0).toString().equals(cardFace) || playerHand.get(1).toString().equals(cardFace)) {
         				System.out.println("Player has Blackjack!");
         				noOneWonYet = false;
         				PLAYER.sayYouWin();
         			}
         		}
         	}
-        }
-        
-        System.exit(0); // TODO: Remove after blackjack tester is working.
-        
+        }        
         //Only starts if neither player nor house have blackjack
         while (noOneWonYet == true) {
             int choice = 0;
@@ -184,9 +170,6 @@ public class House {
                     playerHand.add(deck.deal());
                     playerHandValueArray = convertToArray(playerHandValue);
                     handValueInt += playerHandValueArray[playerHandValue.size() - 1];
-                    if (playerHasTwoAces == true) {
-                    	handValueInt -= 10;
-                    }
                 } else if (choice == 1) {
                     endOfTurn = true;
                 } else {
@@ -217,9 +200,6 @@ public class House {
                     }
                 houseHandValueArray = convertToArray(houseHandValue);
                 houseHandValueInt += houseHandValueArray[houseHand.size() - 1];
-                if (houseHasTwoAces == true) {
-                	houseHandValueInt -= 10;
-                }
                 } else if (houseHandValueInt > 21) {
                 	if (shouldShowGameplay()) {
                 		System.out.println("House bust");
