@@ -28,15 +28,12 @@ public class Arena {
         Arena arena = new Arena();
 
         System.out.println("Welcome to Blackjack!");
-        int numberOfGames = arena.getNumberOfGames(); // TODO: Comment back in after testing is complete
-        // System.out.println("How many players will be playing against the house?"); // Stretch goal
-        PlayerType playerType = arena.getPlayerType("What kind of player will be playing against the house?"); // TODO: Comment back in after testing is complete
-
+        int numberOfGames = arena.getNumberOfGames();
+        PlayerType playerType = arena.getPlayerType("What kind of player will be playing against the house?");
         Player player = new Player("Player", playerType, arena.input);
 
         House house = new House(player, numberOfGames);
         
-        //house.play();
         for (int i = 0; i < numberOfGames; i++) {
         	house.play();
         }
@@ -63,7 +60,7 @@ public class Arena {
             }
         }
     }
-
+    
     /**
      *
      * @param message

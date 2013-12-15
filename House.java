@@ -237,7 +237,7 @@ public class House {
      */
     public void showResults() {
         if (!shouldShowGameplay()) {
-            System.out.println("Okay, Player 1 (" + PLAYER.getPlayerTypeName() + ") just finished playing " + NUMBER_OF_GAMES + " games.  Here is the outcome:");
+            System.out.println("Okay, " + PLAYER.getPlayerTypeName() + " and the House just finished playing " + intToString(NUMBER_OF_GAMES) + " games.  Here is the outcome:");
         }
         System.out.println(PLAYER.getPlayerTypeName() + " wins: " + PLAYER.getWins());
         System.out.println("House wins: " + PLAYER.getLoses());
@@ -252,5 +252,45 @@ public class House {
         System.out.println(PLAYER.getPlayerTypeName() + " wins: " + fmt.format(winPercent) + "%");
         System.out.println("House wins: " + fmt.format(lossPercent) + "%");
         System.out.println(PLAYER.getPlayerTypeName() + " got Blackjack: " + fmt.format(playerBlackjackPercent) + "%");
+        System.out.println("House got blackjack: " + fmt.format(houseBlackjackPercent) + "%");
     }
+    
+    private String intToString (int numberOfPlayers) {
+	 	String numberInWord = "";
+	 	switch (numberOfPlayers) {
+	 	case 1:
+		 	numberInWord = "one";
+		 	break;
+	 	case 2:
+		 	numberInWord = "two";
+		 	break;
+	 	case 3:
+		 	numberInWord = "three";
+		 	break;
+	 	case 4:
+		 	numberInWord = "four";
+		 	break;
+	 	case 5:
+		 	numberInWord = "five";
+		 	break;
+	 	case 6:
+		 	numberInWord = "six";
+		 	break;
+	 	case 7:
+		 	numberInWord = "seven";
+		 	break;
+	 	case 8:
+		 	numberInWord = "eight";
+		 	break;
+	 	case 9:
+		 	numberInWord = "nine";
+		 	break;
+	 	case 10:
+		 	numberInWord = "ten";
+		 	break;
+		 	default:
+		 		numberInWord += numberOfPlayers;
+	 	}
+	 	return numberInWord;
+ 	}
 }
