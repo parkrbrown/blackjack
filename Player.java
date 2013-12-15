@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package blackjack;
+
 /**
  * This class represents a player. Depending on the type of Player this class is
  * constructed with, it should behave accordingly.
@@ -42,9 +43,9 @@ public class Player {
     public int getPlayerBlackjacks() {
         return playerGotBlackjack;
     }
-    
+
     public int getHouseBlackjacks() {
-    	return houseGotBlackjack;
+        return houseGotBlackjack;
     }
 
     public PlayerType getPlayerType() {
@@ -112,10 +113,11 @@ public class Player {
     }
 
     public int smartPlayer1(int visibleCard, int playerHand) {
-        int choice = 1;
+        int choice = 1; // stay
         if (playerHand < 12) {
             choice = 0; // hit
-        } if (visibleCard > 7 && playerHand < 17) {
+        }
+        if (visibleCard > 7 && playerHand < 17) {
             choice = 0; // hit 
         }
         return choice;
@@ -160,21 +162,21 @@ public class Player {
     public void sayYouLose() {
         loses++;
         if (shouldShowGameplay) {
-        	System.out.println("House wins!");
+            System.out.println("House wins!");
         }
     }
-    
+
     public void sayYouGotBlackjack() {
-    	playerGotBlackjack++;
-    	if (shouldShowGameplay) {
-    		System.out.println(getPlayerTypeName() + " got Blackjack!");
-    	}
+        playerGotBlackjack++;
+        if (shouldShowGameplay) {
+            System.out.println(getPlayerTypeName() + " got Blackjack!");
+        }
     }
-    
+
     public void sayYouLostToBlackjack() {
-    	houseGotBlackjack++;
-    	if (shouldShowGameplay) {
-    		System.out.println("House got Blackjack!");
-    	}
+        houseGotBlackjack++;
+        if (shouldShowGameplay) {
+            System.out.println("House got Blackjack!");
+        }
     }
 }
