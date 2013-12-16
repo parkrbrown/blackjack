@@ -8,12 +8,14 @@ package blackjack;
 import java.util.Scanner;
 
 /**
- * This class is the driver class, where the main method is. It will ask the end user how many houses will be played and which kinds of users will be playing.
- * @author parkerbrown & Zach Bunyard
+ * This class is the driver class, where the main method is. It will ask the end
+ * user how many houses will be played and which kinds of users will be playing.
+ *
+ * @author Parker Brown & Zach Bunyard
  */
 public class Arena {
 
-    private Scanner input = new Scanner(System.in);
+    private static Scanner input = new Scanner(System.in);
     int numberOfPlayerWins;
     int numberOfHouseWins;
     int numberOfGames;
@@ -32,13 +34,13 @@ public class Arena {
         PlayerType playerType = arena.getPlayerType("What kind of player will be playing against the house?");
         Player player = new Player("Player", playerType, arena.input);
 
-        House house = new House(player, numberOfGames);
-        
+        Game game = new Game(player, input);
+
         for (int i = 0; i < numberOfGames; i++) {
-        	house.play();
+            game.play();
         }
 
-        house.showResults();
+        game.showResults();
     }
 
     /**
@@ -60,7 +62,7 @@ public class Arena {
             }
         }
     }
-    
+
     /**
      *
      * @param message

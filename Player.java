@@ -11,17 +11,18 @@ package blackjack;
  *
  * @author parkerbrown & Zach Bunyard
  */
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Player {
 
     private Scanner scanner;
-    private PlayerType playerType;
-    private String name;
     private Random random;
-    private int wins, loses, playerGotBlackjack, houseGotBlackjack;
-    private double count;
+    private final ArrayList<Card> CARDS;
+    private final PlayerType PLAYER_TYPE;
+    private final String NAME;
+    private int wins, loses;
     private boolean shouldShowGameplay;
 
     public void setShouldShowGameplay(boolean value) {
@@ -40,20 +41,32 @@ public class Player {
         return loses;
     }
 
-    public int getPlayerBlackjacks() {
-        return playerGotBlackjack;
-    }
-
-    public int getHouseBlackjacks() {
-        return houseGotBlackjack;
-    }
-
     public PlayerType getPlayerType() {
-        return playerType;
+        return PLAYER_TYPE;
     }
 
     public String getName() {
-        return name;
+        return NAME;
+    }
+
+    public int getHandValue() {
+        return Game.calculateHandValue(CARDS);
+    }
+
+    public boolean hasBlackjack() {
+        return CARDS.size() == 2 && Game.calculateHandValue(CARDS) == 21;
+    }
+
+    public boolean hasBusted() {
+        return Game.calculateHandValue(CARDS) > 21;
+    }
+
+    public void discardHand() {
+        CARDS.clear();
+    }
+
+    public Card getCard(int index) {
+        return CARDS.get(index);
     }
 
     /**
@@ -62,9 +75,7 @@ public class Player {
      * @return
      */
     public String getPlayerTypeName() {
-        switch (playerType) {
-//            case HOUSE:
-//                return "HOUSE";
+        switch (PLAYER_TYPE) {
             case RANDOM:
                 return "RANDOM";
             case SMART:
@@ -76,107 +87,127 @@ public class Player {
         }
     }
 
-    public Player(String name, PlayerType playerType, Scanner scanner) {
-        this.name = name;
-        this.playerType = playerType;
+    /**
+     *
+     * @param NAME
+     * @param PLAYER_TYPE
+     * @param scanner
+     */
+    public Player(String NAME, PlayerType PLAYER_TYPE, Scanner scanner) {
+        this.NAME = NAME;
+        this.PLAYER_TYPE = PLAYER_TYPE;
         this.scanner = scanner;
         this.random = new Random();
         this.wins = 0;
         this.loses = 0;
-        this.houseGotBlackjack = 0;
-        this.playerGotBlackjack = 0;
+        this.CARDS = new ArrayList<>();
     }
 
     /**
-     * This method indicates how many sticks the player would like to take
-     *
-     * @param sticksLeft
+     * Take hit
+     * @param deck
+     */
+    public void takeCard(Deck deck) {
+        CARDS.add(deck.draw());
+    }
+
+    /**
+     * Random Player
+     * @param deck
      * @return
      */
-    public Card takeHit() { // takeHit
-        Deck deck = new Deck();
-        Card card = deck.deal();
-        return card;
-    }
+    public boolean randomPlayer(Deck deck) {
 
-    public int randomPlayer() {
-        int choice = 1;
-
-        Random rand = new Random();
-
-        choice = rand.nextInt(2);
-        if (choice == 0) {
-            takeHit();
+        boolean shouldHit = random.nextInt(2) == 1;
+        if (shouldHit) {
+            takeCard(deck);
         }
-        return choice;
+        return shouldHit;
 
     }
 
-    public int smartPlayer1(int visibleCard, int playerHand) {
-        int choice = 1; // stay
-        if (playerHand < 12) {
-            choice = 0; // hit
+    /**
+     * Smart Player
+     * @param deck
+     * @param dealerVisibleValue
+     * @return
+     */
+    public boolean smartPlayer(Deck deck, int dealerVisibleValue) {
+        boolean shouldHit = false;
+
+        if (getHandValue() < 12) {
+            shouldHit = true;
         }
-        if (visibleCard > 7 && playerHand < 17) {
-            choice = 0; // hit 
+        if (dealerVisibleValue > 6 && getHandValue() < 17) { // turns out 6 is better than 7
+            shouldHit = true;
         }
-        return choice;
+
+        if (shouldHit) {
+            takeCard(deck);
+        }
+
+        return shouldHit;
     }
 
-    public int userPlayer() {
+    /**
+     * User Player
+     * @param deck
+     * @return
+     */
+    public boolean userPlayer(Deck deck, Card dealerSecondCard) {
         String move = "";
-        int choice = -1;
+        boolean shouldHit = false;
         boolean validInput = false;
         while (validInput == false) {
-            System.out.println(name + " would you like to hit or stay?");
+            System.out.println("Your hand: " + getDisplayCards() + "- " + getHandValue());
+            System.out.println("House's visible card: " + dealerSecondCard + " - " + Game.calculateCardValue(dealerSecondCard));
+            System.out.println(NAME + " would you like to hit or stay?");
             move = scanner.next();
             if (move.equalsIgnoreCase("Hit") || move.equalsIgnoreCase("H")) {
                 move = "hit.";
-                choice = 0;
+                shouldHit = true;
                 validInput = true;
             } else if (move.equalsIgnoreCase("Stay") || move.equalsIgnoreCase("S")) {
                 move = "stay.";
-                choice = 1;
                 validInput = true;
             } else {
                 System.out.print("Please enter a valid move. ");
             }
         }
         System.out.println("Okay, " + move);
-        return choice;
+
+        if (shouldHit) {
+            takeCard(deck);
+        }
+
+        return shouldHit;
+    }
+    
+    public String getDisplayCards(){
+        String str = "";
+        for(Card card : CARDS){
+            str+= (card + " ");
+        }
+        return str;
     }
 
     /**
-     * This method tells the player that they won
+     * This method tells the player that they won and adds a win to the win count
      */
     public void sayYouWin() {
         wins++;
         if (shouldShowGameplay) {
-            System.out.println(name + " wins!");
+            System.out.println(NAME + " wins!");
         }
     }
 
     /**
-     * This method tells the player that they lost
+     * This method tells the player that they lost and adds a loss to the loss count
      */
     public void sayYouLose() {
         loses++;
         if (shouldShowGameplay) {
             System.out.println("House wins!");
-        }
-    }
-
-    public void sayYouGotBlackjack() {
-        playerGotBlackjack++;
-        if (shouldShowGameplay) {
-            System.out.println(getPlayerTypeName() + " got Blackjack!");
-        }
-    }
-
-    public void sayYouLostToBlackjack() {
-        houseGotBlackjack++;
-        if (shouldShowGameplay) {
-            System.out.println("House got Blackjack!");
         }
     }
 }

@@ -1,58 +1,110 @@
 package blackjack;
+
 /**
- * This contains the information to produce cards you would find in a 52 card deck.
+ * This contains the information to produce cards you would find in a 52 card
+ * deck.
+ *
  * @author Zachary Bunyard & Parker Brown
  *
  */
-
 public class Card {
 
-    public static final int SPADE = 4;
-    public static final int HEART = 3;
-    public static final int CLUB = 2;
-    public static final int DIAMOND = 1;
+    /**
+     * All of the suits
+     */
+    public enum Suit {
 
-    private static final String[] Suit = {"*", "D", "C", "H", "S"};
-    private static final String[] Rank = {"*", "*", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
-
-    private byte cardSuit;
-    private byte cardRank;
-
-    public Card(int suit, int rank) {
-        if (rank == 1) {
-            cardRank = 14;     // Give Ace the rank 14
-        } else {
-            cardRank = (byte) rank;
-        }
-
-        cardSuit = (byte) suit;
+        Club,
+        Diamond,
+        Heart,
+        Spade
     }
 
-    public int suit() {
-        return (cardSuit);      // This is a shorthand for:  this.cardSuit
+    /**
+     * All of the faces
+     */
+    public enum Face {
+
+        Two,
+        Three,
+        Four,
+        Five,
+        Six,
+        Seven,
+        Eight,
+        Nine,
+        Ten,
+        Jack,
+        Queen,
+        King,
+        Ace
     }
 
-    public String suitStr() {
-        return (Suit[ cardSuit]);   // This is a shorthand for:  this.Suit[this.cardSuit] 
+    private final Suit SUIT;
+    private final Face FACE;
+
+    public Card(Suit SUIT, Face FACE) {
+        this.SUIT = SUIT;
+        this.FACE = FACE;
     }
 
-    public int rank() {
-        return (cardRank);
+    public Suit getSuit() {
+        return SUIT;
     }
 
-    public String rankStr() {
-        return (getRank()[ cardRank]);
+    public Face getFace() {
+        return FACE;
     }
 
+    @Override
     public String toString() {
-        return (getRank()[ cardRank] + Suit[ cardSuit]);
+        // return FACE.toString() + " " + SUIT.toString(); // NEVERMIND JK YOLO
+        String str = "";
+        switch (SUIT) {
+            case Club:
+                str = "C";
+                break;
+            case Diamond:
+                str = "D";
+                break;
+            case Heart:
+                str = "H";
+                break;
+            case Spade:
+                str = "S";
+                break;
+            default:
+                break;
+        }
+        switch (FACE) {
+            case Two:
+                return 2 + str;
+            case Three:
+                return 3 + str;
+            case Four:
+                return 4 + str;
+            case Five:
+                return 5 + str;
+            case Six:
+                return 6 + str;
+            case Seven:
+                return 7 + str;
+            case Eight:
+                return 8 + str;
+            case Nine:
+                return 9 + str;
+            case Ten:
+                return 10 + str;
+            case Jack:
+                return "J" + str;
+            case Queen:
+                return "Q" + str;
+            case King:
+                return "K" + str;
+            case Ace:
+                return "A" + str;
+            default:
+                return str;
+        }
     }
-
-	public static String[] getRank() {
-		return Rank;
-	}
-	
-	public static String[] getSuit() {
-		return Suit;
-	}
 }
