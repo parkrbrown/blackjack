@@ -3,7 +3,7 @@ package blackjack;
 public class TestDeck {
 
     /**
-     * Prints out an un-shuffled deck, then a shuffled deck.
+     * Tests the deck class. Prints out an un-shuffled deck, then a shuffled deck.
      * @param args
      */
     public static void main(String[] args) {

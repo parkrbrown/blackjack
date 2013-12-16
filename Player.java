@@ -135,12 +135,22 @@ public class Player {
     public boolean smartPlayer(Deck deck, int dealerVisibleValue) {
         boolean shouldHit = false;
 
-        if (getHandValue() < 12) {
+        if (getHandValue() < 17) {
             shouldHit = true;
         }
-        if (dealerVisibleValue > 6 && getHandValue() < 17) { // turns out 6 is better than 7
-            shouldHit = true;
-        }
+//        if (dealerVisibleValue > 6 && getHandValue() < 17) { // turns out 6 is better than 7
+//            shouldHit = true;
+//        }
+//        
+//        if (getHandValue() )
+//        
+//        if (getHandValue() > 12 && getHandValue() < 19){
+//            shouldHit = true;
+//        }
+//        
+//        if (getHandValue() > 18 && getHandValue() < 22){
+//            shouldHit = false;
+//        }
 
         if (shouldHit) {
             takeCard(deck);

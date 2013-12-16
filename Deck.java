@@ -5,8 +5,7 @@ import blackjack.Card.Suit;
 import java.util.ArrayList;
 
 /**
- * This class takes information from Card class to produce a complete and
- * shuffled 52 card deck.
+ * This class creates a deck of cards
  *
  * @author Zachary Bunyard & Parker Brown
  *
@@ -47,7 +46,7 @@ public class Deck {
     }
 
     /**
-     *
+     * Draws a card
      * @return
      */
     public Card draw() {
