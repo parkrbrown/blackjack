@@ -174,14 +174,19 @@ public class Game {
     
     public static int calculateHandValue(ArrayList<Card> cards){
         int value = 0;
+        boolean sawAnAce = false;
         for(Card card : cards) { // get value of hand
             value += calculateCardValue(card);
         }
         if(value > 21) { // assume aces are 1's
             value = 0;
             for(Card card : cards) {
-                value += calculateCardValue(card, true); //TODO: SHould not change BOTH aces to value of 1 if hand holds 2 aces.  
-                											//Both aces should only be changed to value of 1 if hand goes over 21 with one ace valued at 1 and the other at 11
+            	if (card.getFace() == Card.Face.Ace && sawAnAce == false) {
+            		value += calculateCardValue(card, true); 
+            		sawAnAce = true;
+            	} else if (card.getFace() == Card.Face.Ace && sawAnAce == true){
+            		value += calculateCardValue(card, false);  
+            	}
             }
         }
         return value;
