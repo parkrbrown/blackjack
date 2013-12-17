@@ -13,7 +13,6 @@ public class Card {
      * All of the suits
      */
     public enum Suit {
-
         Club,
         Diamond,
         Heart,
@@ -24,7 +23,6 @@ public class Card {
      * All of the faces
      */
     public enum Face {
-
         Two,
         Three,
         Four,

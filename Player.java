@@ -26,6 +26,8 @@ public class Player {
     private final String NAME;
     private int wins, loses;
     private boolean shouldShowGameplay;
+    
+    Arena arena = new Arena();
 
     public void setShouldShowGameplay(boolean value) {
         shouldShowGameplay = value;
@@ -56,20 +58,20 @@ public class Player {
     }
 
     public boolean hasBlackjack() {
-    	if (((CARDS.get(1).getFace() == Card.Face.King || CARDS.get(1).getFace() == Card.Face.Queen || CARDS.get(1).getFace() == Card.Face.Jack) 
-    			&& (CARDS.get(0).getFace() == Card.Face.Ace)) || (CARDS.get(1).getFace() == Card.Face.Ace && (CARDS.get(0).getFace() == Card.Face.King || CARDS.get(0).getFace() == Card.Face.Queen || CARDS.get(0).getFace() == Card.Face.Jack))) {
-    		return true;
-    	} else {
-    		return false;
-    	}
+        if (((CARDS.get(1).getFace() == Card.Face.King || CARDS.get(1).getFace() == Card.Face.Queen || CARDS.get(1).getFace() == Card.Face.Jack)
+                && (CARDS.get(0).getFace() == Card.Face.Ace)) || (CARDS.get(1).getFace() == Card.Face.Ace && (CARDS.get(0).getFace() == Card.Face.King || CARDS.get(0).getFace() == Card.Face.Queen || CARDS.get(0).getFace() == Card.Face.Jack))) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public boolean hasBusted() {
         return Game.calculateHandValue(CARDS) > 21;
     }
-    
+
     public boolean has21() {
-    	return Game.calculateHandValue(CARDS) == 21;
+        return Game.calculateHandValue(CARDS) == 21;
     }
 
     public void discardHand() {
@@ -116,6 +118,7 @@ public class Player {
 
     /**
      * Take hit
+     *
      * @param deck
      */
     public void takeCard(Deck deck) {
@@ -124,6 +127,7 @@ public class Player {
 
     /**
      * Random Player
+     *
      * @param deck
      * @return
      */
@@ -139,6 +143,7 @@ public class Player {
 
     /**
      * Smart Player
+     *
      * @param deck
      * @param dealerVisibleValue
      * @return
@@ -146,23 +151,10 @@ public class Player {
     public boolean smartPlayer(Deck deck, int dealerVisibleValue) {
         boolean shouldHit = false;
 
+        // Turns out this one condition has better odds than having more complex logic
         if (getHandValue() < 17) {
             shouldHit = true;
         }
-//        if (dealerVisibleValue > 6 && getHandValue() < 17) { // turns out 6 is better than 7
-//            shouldHit = true;
-//        }
-//        
-//        if (getHandValue() )
-//        
-//        if (getHandValue() > 12 && getHandValue() < 19){
-//            shouldHit = true;
-//        }
-//        
-//        if (getHandValue() > 18 && getHandValue() < 22){
-//            shouldHit = false;
-//        }
-
         if (shouldHit) {
             takeCard(deck);
         }
@@ -172,16 +164,18 @@ public class Player {
 
     /**
      * User Player
+     *
      * @param deck
      * @return
      */
-    public boolean userPlayer(Deck deck, Card dealerSecondCard) {
+    public boolean userPlayer(Deck deck, Card dealerVisibleValue) {
         String move = "";
         boolean shouldHit = false;
         boolean validInput = false;
         while (validInput == false) {
-            System.out.println("Your hand: " + getDisplayCards() + "- " + getHandValue());
-            System.out.println("House's visible card: " + dealerSecondCard + " - " + Game.calculateCardValue(dealerSecondCard));
+            System.out.println(); // line break
+            System.out.println("Your hand: " + getDisplayCards() + "(" + getHandValue() + ")");
+            System.out.println("House's visible card: " + dealerVisibleValue + " (" + Game.calculateCardValue(dealerVisibleValue) + ")");
             System.out.println(NAME + " would you like to hit or stay?");
             move = scanner.next();
             if (move.equalsIgnoreCase("Hit") || move.equalsIgnoreCase("H")) {
@@ -203,17 +197,18 @@ public class Player {
 
         return shouldHit;
     }
-    
-    public String getDisplayCards(){
+
+    public String getDisplayCards() {
         String str = "";
-        for(Card card : CARDS){
-            str+= (card + " ");
+        for (Card card : CARDS) {
+            str += (card + " ");
         }
         return str;
     }
 
     /**
-     * This method tells the player that they won and adds a win to the win count
+     * This method tells the player that they won and adds a win to the win
+     * count
      */
     public void sayYouWin() {
         wins++;
@@ -223,7 +218,8 @@ public class Player {
     }
 
     /**
-     * This method tells the player that they lost and adds a loss to the loss count
+     * This method tells the player that they lost and adds a loss to the loss
+     * count
      */
     public void sayYouLose() {
         loses++;

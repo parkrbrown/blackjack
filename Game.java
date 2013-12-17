@@ -33,7 +33,7 @@ public class Game {
     
     public void play(){
     	if (gamesPlayed > 0 && shouldShowGameplay()) {
-    		System.out.println("\nNext Game:\n");
+    		System.out.println("Next Game:");
     	}
         gamesPlayed++;
         deck = new Deck();
@@ -67,7 +67,7 @@ public class Game {
             
             //Lets USER type player know if house busted
             if (house.hasBusted() && shouldShowGameplay()) {
-            	System.out.println("THE HOUSE BUST!");
+            	System.out.println("THE HOUSE BUSTED!");
             }
 
             // if the house hasn't busted, and they have a higher value than player (unless player busted) --- house wins
@@ -96,6 +96,7 @@ public class Game {
         player.sayYouLose();
         if(shouldShowGameplay()){
             System.out.println("THE HOUSE WON!");
+            System.out.println(); // Line Break
             showPlayerAndHouseCards();
         }
     }
@@ -105,6 +106,7 @@ public class Game {
         player.sayYouWin();
         if(shouldShowGameplay()){
             System.out.println(player.getPlayerTypeName() + " WON!");
+            System.out.println(); // Line break
             showPlayerAndHouseCards();
         }
     }
@@ -112,13 +114,15 @@ public class Game {
     private void tiedGame(){
         if(shouldShowGameplay()){
             System.out.println("PUSH!");
+            System.out.println(); // Line break
             showPlayerAndHouseCards();
         }
     }
     
     private void showPlayerAndHouseCards(){
-        System.out.println("House: " + house.getDisplayCards() + " - " + house.getHandValue());
-        System.out.println(player.getPlayerTypeName() + ": " + player.getDisplayCards() + " - " + player.getHandValue());
+        System.out.println("House: " + house.getDisplayCards() + " (" + house.getHandValue() + ")");
+        System.out.println(player.getPlayerTypeName() + ": " + player.getDisplayCards() + " (" + player.getHandValue() + ")");
+        System.out.println(); // Line break
     }
     
     private void runPlayerRounds(){
