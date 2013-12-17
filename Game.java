@@ -64,7 +64,12 @@ public class Game {
             
             runPlayerRounds();
             runHouseRounds();
-            //TODO: Move these 3 if statements to occur after every time player hits.
+            
+            //Lets USER type player know if house busted
+            if (house.hasBusted() && shouldShowGameplay()) {
+            	System.out.println("THE HOUSE BUST!");
+            }
+
             // if the house hasn't busted, and they have a higher value than player (unless player busted) --- house wins
             if(!house.hasBusted() && (house.getHandValue() > player.getHandValue() || player.hasBusted())){
                 houseWon();
@@ -119,10 +124,13 @@ public class Game {
     private void runPlayerRounds(){
         switch(player.getPlayerType()){
             case RANDOM:
-                while(player.randomPlayer(deck)){}
+                while(player.randomPlayer(deck) && player.hasBusted() == false){}
                 break;
             case USER:
-                while(player.userPlayer(deck, house.getCard(1))){}
+                while(player.userPlayer(deck, house.getCard(1)) && player.hasBusted() == false){}
+                if (player.hasBusted() == true) {
+                	System.out.println(player.getPlayerTypeName() + " BUST!");
+                }
                 break;
             case SMART:
                 while(player.smartPlayer(deck, calculateCardValue(house.getCard(1)))) {}
@@ -135,8 +143,9 @@ public class Game {
     
     private void runHouseRounds(){
         while(true){
-            if(house.getHandValue() > 16)
+            if(house.getHandValue() > 16) {
                 break;
+            }
             house.takeCard(deck);
         }
     }
