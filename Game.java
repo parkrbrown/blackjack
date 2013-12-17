@@ -161,13 +161,12 @@ public class Game {
         System.out.println("House wins: " + player.getLoses());
         System.out.println("Pushes: " + (gamesPlayed - gamesPlayedThatWerentATie));
         
+        //IMPORTANT: Pushes are not accounted for when determining number of wins and losses <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<==================================================== BE AWARE OF THIS
         DecimalFormat fmt = new DecimalFormat("0.00#");
-        double winPercent = (100 * ((player.getWins() / (double) gamesPlayed)));
-        double lossPercent = (100 * ((player.getLoses() / (double) gamesPlayed)));
-        double tiePercent = (100 * (((gamesPlayed - gamesPlayedThatWerentATie) / (double) gamesPlayed)));
+        double winPercent = (100 * ((player.getWins() / (double) gamesPlayedThatWerentATie)));
+        double lossPercent = (100 * ((player.getLoses() / (double) gamesPlayedThatWerentATie)));
         System.out.println(player.getPlayerTypeName() + " wins: " + fmt.format(winPercent) + "%");
         System.out.println("House wins: " + fmt.format(lossPercent) + "%");
-        System.out.println("Pushes occured: " + fmt.format(tiePercent) + "%");
         
     }
     
@@ -178,7 +177,7 @@ public class Game {
         for(Card card : cards) { // get value of hand
             value += calculateCardValue(card);
         }
-        if(value > 21) { // assume aces are 1's
+        if(value > 21) { // assume aces are 1's.  multiple aces are only all 1 if total hand value is over 21 with them valued at 11
             value = 0;
             for(Card card : cards) {
             	if (card.getFace() == Card.Face.Ace && sawAnAce == false) {
@@ -186,6 +185,10 @@ public class Game {
             		sawAnAce = true;
             	} else if (card.getFace() == Card.Face.Ace && sawAnAce == true){
             		value += calculateCardValue(card, false);  
+            	} else if (sawAnAce == false) {
+            		value += calculateCardValue(card, false);
+            	} else if (sawAnAce == true) {
+            		value += calculateCardValue(card, true);
             	}
             }
         }
