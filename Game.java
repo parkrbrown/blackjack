@@ -124,10 +124,10 @@ public class Game {
     private void runPlayerRounds(){
         switch(player.getPlayerType()){
             case RANDOM:
-                while(player.randomPlayer(deck) && player.hasBusted() == false){}
+                while(player.randomPlayer(deck) && player.hasBusted() == false && player.has21() == false){}
                 break;
             case USER:
-                while(player.userPlayer(deck, house.getCard(1)) && player.hasBusted() == false){}
+                while(player.userPlayer(deck, house.getCard(1)) && player.hasBusted() == false && player.has21() == false){}
                 if (player.hasBusted() == true) {
                 	System.out.println(player.getPlayerTypeName() + " BUST!");
                 }

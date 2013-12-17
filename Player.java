@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+import blackjack.Card.Face;
+
 public class Player {
 
     private Scanner scanner;
@@ -54,11 +56,20 @@ public class Player {
     }
 
     public boolean hasBlackjack() {
-        return CARDS.size() == 2 && Game.calculateHandValue(CARDS) == 21;
+    	if (((CARDS.get(1).getFace() == Card.Face.King || CARDS.get(1).getFace() == Card.Face.Queen || CARDS.get(1).getFace() == Card.Face.Jack) 
+    			&& (CARDS.get(0).getFace() == Card.Face.Ace)) || (CARDS.get(1).getFace() == Card.Face.Ace && (CARDS.get(0).getFace() == Card.Face.King || CARDS.get(0).getFace() == Card.Face.Queen || CARDS.get(0).getFace() == Card.Face.Jack))) {
+    		return true;
+    	} else {
+    		return false;
+    	}
     }
 
     public boolean hasBusted() {
         return Game.calculateHandValue(CARDS) > 21;
+    }
+    
+    public boolean has21() {
+    	return Game.calculateHandValue(CARDS) == 21;
     }
 
     public void discardHand() {
