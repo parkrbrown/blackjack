@@ -25,13 +25,16 @@ public class Game {
     private boolean shouldShowGameplay() {
         return player.getPlayerType() == PlayerType.USER;
     }
-    
+
     public Game(Player player, Scanner scanner){
         this.player = player;
         this.house = new Player("House", PlayerType.HOUSE, scanner);
     }
     
     public void play(){
+    	if (gamesPlayed > 0 && shouldShowGameplay()) {
+    		System.out.println("\nNext Game:\n");
+    	}
         gamesPlayed++;
         deck = new Deck();
         deck.shuffle(1000);
@@ -61,7 +64,7 @@ public class Game {
             
             runPlayerRounds();
             runHouseRounds();
-            
+            //TODO: Move these 3 if statements to occur after every time player hits.
             // if the house hasn't busted, and they have a higher value than player (unless player busted) --- house wins
             if(!house.hasBusted() && (house.getHandValue() > player.getHandValue() || player.hasBusted())){
                 houseWon();
@@ -142,28 +145,35 @@ public class Game {
         if(!shouldShowGameplay()){
             System.out.println("Okay, " + player.getPlayerTypeName() + " and the House just finished playing " + gamesPlayed + " games. Here is the outcome:");
         }
-        System.out.println(player.getPlayerTypeName() + " wins: " + player.getWins());
-        System.out.println("House wins: " + player.getLoses());
         
         int gamesPlayedThatWerentATie = player.getWins() + house.getWins();
         
+        System.out.println(player.getPlayerTypeName() + " wins: " + player.getWins());
+        System.out.println("House wins: " + player.getLoses());
+        System.out.println("Pushes: " + (gamesPlayed - gamesPlayedThatWerentATie));
+        
         DecimalFormat fmt = new DecimalFormat("0.00#");
-        double winPercent = (100 * ((player.getWins() / (double) gamesPlayedThatWerentATie)));// + 0.0005));
-        double lossPercent = (100 * ((player.getLoses() / (double) gamesPlayedThatWerentATie)));// + 0.0005));
+        double winPercent = (100 * ((player.getWins() / (double) gamesPlayed)));
+        double lossPercent = (100 * ((player.getLoses() / (double) gamesPlayed)));
+        double tiePercent = (100 * (((gamesPlayed - gamesPlayedThatWerentATie) / (double) gamesPlayed)));
         System.out.println(player.getPlayerTypeName() + " wins: " + fmt.format(winPercent) + "%");
         System.out.println("House wins: " + fmt.format(lossPercent) + "%");
+        System.out.println("Pushes occured: " + fmt.format(tiePercent) + "%");
         
     }
     
     
     public static int calculateHandValue(ArrayList<Card> cards){
         int value = 0;
-        for(Card card : cards) // get value of hand
+        for(Card card : cards) { // get value of hand
             value += calculateCardValue(card);
-        if(value > 21){ // assume aces are 1's
+        }
+        if(value > 21) { // assume aces are 1's
             value = 0;
-            for(Card card : cards)
-                value += calculateCardValue(card, true);
+            for(Card card : cards) {
+                value += calculateCardValue(card, true); //TODO: SHould not change BOTH aces to value of 1 if hand holds 2 aces.  
+                											//Both aces should only be changed to value of 1 if hand goes over 21 with one ace valued at 1 and the other at 11
+            }
         }
         return value;
     }
